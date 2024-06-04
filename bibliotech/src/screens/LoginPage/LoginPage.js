@@ -1,4 +1,3 @@
-import { Image } from "react-native";
 import {
   Container,
   ContainerInput,
@@ -14,8 +13,6 @@ export const LoginPage = () => {
     <Container>
       <GradientContainer>
         <LogoLogin
-          width={200}
-          height={160}
           source={require("../../assets/LOGO.png")}
         />
         <ContainerInput>

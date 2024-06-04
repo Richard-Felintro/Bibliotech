@@ -3,8 +3,9 @@ import { TextContent, TextHighlight, TextLight } from "../Text/Style";
 import { ContainerColumn, ContainerRow } from "../Container/Style";
 
 export const CommentContainer = styled(ContainerRow)`
+  flex-grow: 1;
   height: 150px;
-  margin: 25px;
+  margin: 5px;
 `;
 
 export const CommentName = styled(TextHighlight)`

@@ -1,6 +1,7 @@
 import {
   TextContent,
   TextFieldBox,
+  TextFieldContent,
   TextHighlight,
   TextRight,
 } from "./Style";
@@ -8,8 +9,7 @@ import {
 export const TextField = ({ label, content }) => {
   return (
     <TextFieldBox>
-      <TextHighlight>{label}</TextHighlight>
-      <TextContent>{content}</TextContent>
+      <TextHighlight>{label} </TextHighlight><TextFieldContent>{content}</TextFieldContent>
     </TextFieldBox>
   );
 };

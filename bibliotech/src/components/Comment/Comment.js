@@ -9,17 +9,14 @@ import {
   CommentName,
 } from "./Style";
 
-export const BookComment = () => {
+export const BookComment = ({ userName, date, content }) => {
   return (
     <CommentContainer>
       <CommentPfp source={require("../../assets/murilo.png")} />
       <CommentColumn>
-        <CommentName>Murilo</CommentName>
-        <CommentDate>24 de Maio</CommentDate>
-        <CommentContent>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </CommentContent>
+        <CommentName>{userName}</CommentName>
+        <CommentDate>{date}</CommentDate>
+        <CommentContent>{content}</CommentContent>
       </CommentColumn>
     </CommentContainer>
   );

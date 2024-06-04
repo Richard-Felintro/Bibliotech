@@ -2,6 +2,7 @@ import { Image } from "react-native";
 import {
   Container,
   ContainerInput,
+  ContainerText,
   GradientContainer,
 } from "../../components/Container/Style";
 import { Input } from "../../components/Input/Input";
@@ -15,16 +16,15 @@ export const ForgotPasswordScreen = () => {
   return (
     <Container>
       <GradientContainer>
-        <LogoLogin
-          width={200}
-          height={160}
-          source={require("../../assets/LOGO.png")}
-        />
-        <Title>Recuperação de Senha</Title>
-        <TextContent>
-          Digite o endereço de email para qual email enviaremos o link de
-          recuperação de senha.
-        </TextContent>
+        <LogoLogin source={require("../../assets/LOGO.png")} />
+
+        <ContainerText>
+          <Title>Recuperação de Senha</Title>
+          <TextContent>
+            Digite o endereço de email para qual email enviaremos o link de
+            recuperação de senha.
+          </TextContent>
+        </ContainerText>
 
         <ContainerInput>
           <Input placeholder={"EMAIL"} />

@@ -6,7 +6,7 @@ export const IconField = styled(ContainerRow)`
 `;
 
 export const ContainerIcon = styled(ContainerRow)`
-  width: 20%;
+  width: 50%;
   justify-content: center;
   margin: 5px;
 `;

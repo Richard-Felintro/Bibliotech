@@ -2,6 +2,7 @@ import { Image } from "react-native";
 import {
   Container,
   ContainerInput,
+  ContainerText,
   GradientContainer,
 } from "../../components/Container/Style";
 import { Input } from "../../components/Input/Input";
@@ -20,8 +21,11 @@ export const ChangePasswordScreen = () => {
           height={160}
           source={require("../../assets/LOGO.png")}
         />
-        <Title>Redifinição de Senha</Title>
-        <TextContent>Defina uma nova senha.</TextContent>
+
+        <ContainerText>
+          <Title>Redifinição de Senha</Title>
+          <TextContent>Defina uma nova senha.</TextContent>
+        </ContainerText>
 
         <ContainerInput>
           <Input placeholder={"SENHA"} />

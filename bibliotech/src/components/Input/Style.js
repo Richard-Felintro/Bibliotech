@@ -7,13 +7,12 @@ export const InputBox = styled.View`
   border-bottom-width: 1px;
   width: 80%;
   min-width: 50vw;
-  margin-top: 25px;
 `;
 
 export const InputText = styled.TextInput.attrs({
   placeholderTextColor: "#ffff",
 })`
-  width: 80%;
+  width: 100%;
   padding: 10px;
   font-family: "MontserratAlternates_500Medium";
   font-size: 16px;
@@ -28,8 +27,6 @@ export const InputCodeBox = styled.View`
   border-bottom-width: 1px;
   width: 20%;
   height: fit-content;
-  margin-top: 10px;
-  margin-bottom: 50px;
 `;
 
 export const InputCode = styled.TextInput.attrs({
