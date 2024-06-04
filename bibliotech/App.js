@@ -34,6 +34,7 @@ export default function App() {
     MontserratAlternates_600SemiBold,
     MontserratAlternates_500Medium,
     MontserratAlternates_700Bold,
+    MontserratAlternates_300Light,
   });
 
   if(!fontsLoaded && !fontError){
@@ -42,7 +43,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Navigation"
           component={Navigation}
           options={{
@@ -50,7 +51,16 @@ export default function App() {
             headerTransparent: true,
             headerShown: false,
           }}
-        /> */}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name="Calendar"
           component={Calendar}
@@ -60,6 +70,7 @@ export default function App() {
             headerShown: false,
           }}
         />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

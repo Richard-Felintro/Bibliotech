@@ -18,7 +18,7 @@ export const ButtonDark = styled.TouchableOpacity`
 `;
 
 export const ButtonLight = styled.TouchableOpacity`
-  width: 40%;
+  width: 80%;
   height: 56px;
   background-color: #2c7da0;
   border-radius: 12px;
@@ -46,7 +46,9 @@ export const ButtonLightSmall = styled.TouchableOpacity`
 `;
 
 export const Cancelation = styled.Text`
+    margin-top: 37px;
     text-decoration: underline;
-    font-size: 10px;
+    font-size: 15px;
     color:#ffff;
+    font-family:"MontserratAlternates_300Light";
 `

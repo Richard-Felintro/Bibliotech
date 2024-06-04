@@ -29,4 +29,5 @@ export const Subtitle = styled.Text`
     color:#ffff;
     font-size:16px;
     font-family:'MontserratAlternates_500Medium';
+    margin-bottom: ${props=>`${props.BottomSubtitle}px`}
 `

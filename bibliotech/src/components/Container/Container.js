@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const ContainerProfile = styled.SafeAreaView`
+
     background-color:#001B21;
     flex:1;
     align-items:center;
-    margin-top:20px;
+    margin-top:40px;
     padding:${props=> `${props.PadContainer}px`};
 
 `

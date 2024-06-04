@@ -1,8 +1,22 @@
-import { Text } from "react-native";
+import { Button, Text, View } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Calendar } from "react-native-calendars";
 
-
-export const Navigation = () => {
+const Stack = createNativeStackNavigator();
+export const Navigation = ({navigation}) => {
     return(
-        <Text>Navegacao</Text>
+       <View style={{
+      marginTop:50
+
+    }}>
+         <Button 
+                title="Profile" 
+                onPress={()=> navigation.navigate("Profile")}         
+         />
+         <Button 
+                title="Calendar" 
+                onPress={()=> navigation.navigate("Calendar")}         
+         />
+       </View>
     );
 }

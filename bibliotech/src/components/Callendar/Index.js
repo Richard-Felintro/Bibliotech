@@ -90,7 +90,7 @@ export const CalendarioCompleto = ({ selecionarData, dataSelecionada }) => {
       style={{
         width: 360,
         alignSelf: 'center',
-        backgroundColor: 'black',
+        backgroundColor: 'transparent',
         
         // marginBottom: ,
         // borderRadius:5
@@ -111,18 +111,19 @@ export const CalendarioCompleto = ({ selecionarData, dataSelecionada }) => {
       minDate={startingDate.toDateString()}
 
       theme={{
-        calendarBackground: '#FAFAFA',
-        arrowColor: '#49B3BA',
-        textDisabledColor: '#C6C5CE',
-        todayTextColor: '#5F5C6B',
-        selectedDayTextColor: '#FAFAFA',
-        selectedDayBackgroundColor: '#60BFC5',
+        calendarBackground: '#001B21',
+        arrowColor: '#ACABB7',
+        textDisabledColor: '#ffff',
+        todayTextColor: '#ffff',
+        selectedDayTextColor: '#001B21',
+        selectedDayBackgroundColor: '#2c7da0',
 
         textDayFontSize: 16,
         textMonthFontSize: 20,
         textDayHeaderFontSize: 12,
+        monthTextColor:'#ffff',
 
-        textDayStyle: { "color": '#5F5C6B' },
+        textDayStyle: { "color": '#ffff' },
 
         textDayFontFamily: "MontserratAlternates_600SemiBold",
         textDayHeaderFontFamily: "MontserratAlternates_600SemiBold",
