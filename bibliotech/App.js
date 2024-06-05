@@ -38,7 +38,6 @@ import { BookInfoScreen } from "./src/screens/BookInfoScreen/BookInfoScreen";
 //* Matheus Telas
 import { Calendar } from "./src/screens/CalendarPage/CalendarPage";
 import { Profile } from "./src/screens/Profile/Profile";
-import { Calendario, CalendarioCompleto } from "./src/components/Callendar/Index";
 
 const Stack = createNativeStackNavigator();
 
