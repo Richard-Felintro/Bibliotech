@@ -24,12 +24,13 @@ import {
 } from "@expo-google-fonts/montserrat-alternates";
 
 //* Richard telas
-import { LoginPage } from "./src/screens/LoginPage/LoginPage";
+import { LoginScreen } from "./src/screens/LoginScreen/LoginScreen";
 import { StatusBar } from "expo-status-bar";
 import { ForgotPasswordScreen } from "./src/screens/ForgotPasswordScreen/ForgotPasswordScreen";
 import { ChangePasswordScreen } from "./src/screens/ChangePasswordScreen/ChangePasswordScreen";
 import { CodeVerificationScreen } from "./src/screens/CodeVerificationScreen/CodeVerificationScreen";
 import { BookInfoScreen } from "./src/screens/BookInfoScreen/BookInfoScreen";
+import { Main } from "./src/screens/Main/Main";
 
 const Stack = createNativeStackNavigator();
 
@@ -55,8 +56,17 @@ export default function App() {
           }}
         />
         <Stack.Screen
+          name="Main"
+          component={Main}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
           name="Login"
-          component={LoginPage}
+          component={LoginScreen}
           options={{
             title: "",
             headerTransparent: true,

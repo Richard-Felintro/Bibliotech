@@ -8,7 +8,7 @@ import { ButtonDark, ButtonText } from "../../components/Button/Style";
 import { LinkButton, LinkText } from "../../components/Link/Style";
 import { LogoLogin } from "../../components/Logo/Style";
 
-export const LoginPage = () => {
+export const LoginScreen = () => {
   return (
     <Container>
       <GradientContainer>
