@@ -10,6 +10,14 @@ export const Navigation = ({ navigation }) => {
       <Button title="code verify" onPress={() => navigation.navigate("CodeVerification")} />
       <Button title="change password" onPress={() => navigation.navigate("ChangePassword")} />
       <Button title="book info" onPress={() => navigation.navigate("BookInfo")} />
+      <Button 
+                title="Profile" 
+                onPress={()=> navigation.navigate("Profile")}         
+         />
+         <Button 
+                title="Calendar" 
+                onPress={()=> navigation.navigate("Calendar")}         
+         />
       </View>
     </View>
   );
