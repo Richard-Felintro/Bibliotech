@@ -16,6 +16,7 @@ export const TitleSelecao = styled.Text`
     /* margin-bottom: 35px; */
     margin-top:${props=> `${props.Top}px`};
     color:#ffff;
+    margin-bottom: 10px;
 `
 
 export const ContainerSelectPage = styled(ContainerProfile)`

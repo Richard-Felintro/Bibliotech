@@ -1,20 +1,16 @@
 
 import { Button, ScrollView, Text, View } from "react-native";
-import { ContainerImage, ContainerProfile, ImageComponent, PhotoContent, PhotoProfile, ViewIcon, ViewPhotoIcon } from "../../components/Container/Style";
+import { ContainerImage, ContainerProfile, ImageComponent, PhotoContent, PhotoProfile, Scroll, ViewIcon, ViewPhotoIcon } from "../../components/Container/Style";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Input, ViewInput } from "../../components/Input/Style";
 import { ButtonLight, ButtonText } from "../../components/Button/Style";
 export const Profile = ({PadContainer=10}) => {
     return (
-        <ScrollView
-        style={{
-            width:'100%',
-            
-        }}
-    >
+        <Scroll>
         <ContainerProfile
         PadContainer={PadContainer}
         >
+                
           
             {/* <PhotoContent> */}
                 <PhotoProfile>
@@ -49,8 +45,9 @@ export const Profile = ({PadContainer=10}) => {
             <ButtonLight>
                 <ButtonText>SAIR</ButtonText>
             </ButtonLight>
-           
+          
         </ContainerProfile>
-        </ScrollView>
+        </Scroll>
+        
     )
 }

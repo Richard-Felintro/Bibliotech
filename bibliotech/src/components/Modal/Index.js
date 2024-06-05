@@ -1,5 +1,6 @@
 import { Modal } from "react-native"
-import { ConfirmModal } from "../Container/Style"
+import { ConfirmModal } from "../Container/Container"
+
 
 export const ModalConfirm = ({setShowModalConfirm,visible, ...rest})=>{
     return(

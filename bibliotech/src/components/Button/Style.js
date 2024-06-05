@@ -24,6 +24,7 @@ export const ButtonLight = styled.TouchableOpacity`
   border-radius: 12px;
   justify-content: center;
   align-items: center;
+  
 `;
 
 export const ButtonDarkSmall = styled.TouchableOpacity`

@@ -83,7 +83,6 @@ export const ContainerUser = styled.ScrollView`
 `;
 
 export const ContainerProfile = styled.SafeAreaView`
-
     background-color:#001B21;
     flex:1;
     align-items:center;
@@ -148,7 +147,10 @@ export const ImageComponent = styled.Image`
     height:177px;
     border-radius:100px;
 `
-
+export const ConfirmModal = styled.View`
+    background-color:#2C7DA0;
+    flex:1;
+`
 
 
 

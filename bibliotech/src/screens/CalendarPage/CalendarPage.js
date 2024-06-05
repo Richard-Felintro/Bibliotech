@@ -1,27 +1,17 @@
 import { Button, ScrollView } from "react-native";
-<<<<<<< HEAD
 // import { CalendarioCompleto } from "../../components/Callendar/Index";
 import {CalendarioCompleto} from "../../components/Callendar/Index"
-import {
-  Subtitle,
-  TitleSelecao,
-} from "../../components/Callendar/Style";
-import { ContainerProfile } from "../../components/Container/Container";
-=======
-import { CalendarioCompleto } from "../../components/Callendar/Index";
 import { Subtitle, TitleSelecao } from "../../components/Callendar/Style";
->>>>>>> origin/develop
 import {
   ButtonLight,
   ButtonText,
   Cancelation,
 } from "../../components/Button/Style";
 import { useState } from "react";
-<<<<<<< HEAD
-=======
+
 import { ContainerProfile } from "../../components/Container/Style";
->>>>>>> origin/develop
 import { LinkButton, LinkText } from "../../components/Link/Style";
+import { ModalConfirm } from "../../components/Modal/Index";
 
 export const Calendar = ({
   Top = 40,
@@ -30,6 +20,7 @@ export const Calendar = ({
   BottomSubtitle = 10,
 }) => {
   const [selecionarData, setSelecionarData] = useState(null);
+  const [showModalConfirm,setShowModalConfirm] = useState(false);
   return (
     // <ScrollView
     //   style={{
@@ -52,21 +43,24 @@ export const Calendar = ({
         
 
         <TitleSelecao Top={Top}>Data de devolução</TitleSelecao>
-        <Subtitle>8 de Julho</Subtitle>
+        <Subtitle
+          BottomSubtitle={BottomSubtitle}
+        >8 de Julho</Subtitle>
 
-        <ButtonLight MarginTButtom={MarginTButtom}>
+        <ButtonLight MarginTButtom={MarginTButtom}
+          onPress={()=>setShowModalConfirm(true) }
+        >
           <ButtonText>CONTINUAR</ButtonText>
         </ButtonLight>
 
-<<<<<<< HEAD
-        {/* <Cancelation>Cancelar</Cancelation> */}
-        <LinkButton>
-        <LinkText>Cancelar</LinkText>
-=======
         <LinkButton>
           <LinkText>Cancelar</LinkText>
->>>>>>> origin/develop
         </LinkButton>
+
+        <ModalConfirm
+          setShowModalConfirm={setShowModalConfirm}
+          visible={showModalConfirm}
+        />
       </ContainerProfile>
     //  </ScrollView>
   );

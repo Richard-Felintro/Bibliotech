@@ -91,7 +91,12 @@ export const ContainerProfile = styled.SafeAreaView`
     padding:${props=> `${props.PadContainer}px`};
 
 `
-
+export const Scroll = styled.ScrollView`
+  flex:1;
+  /* height:100%; */
+  width:100%;
+  /* align-items:center; */
+`
 export const PhotoProfile = styled.View`
 
     /* border: 0.5px solid white; */
