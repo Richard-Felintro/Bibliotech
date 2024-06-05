@@ -1,15 +1,16 @@
-import { Button, Text, View } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Calendar } from "react-native-calendars";
+import { Button, StyleSheet, View } from "react-native";
 
-const Stack = createNativeStackNavigator();
-export const Navigation = ({navigation}) => {
-    return(
-       <View style={{
-      marginTop:50
-
-    }}>
-         <Button 
+export const Navigation = ({ navigation }) => {
+  return (
+    <View>
+      <View style={styles.buttonView}>
+      <Button title="Main" onPress={() => navigation.navigate("Main")} />
+      <Button title="login" onPress={() => navigation.navigate("Login")} />
+      <Button title="forgot password" onPress={() => navigation.navigate("ForgotPassword")} />
+      <Button title="code verify" onPress={() => navigation.navigate("CodeVerification")} />
+      <Button title="change password" onPress={() => navigation.navigate("ChangePassword")} />
+      <Button title="book info" onPress={() => navigation.navigate("BookInfo")} />
+      <Button 
                 title="Profile" 
                 onPress={()=> navigation.navigate("Profile")}         
          />
@@ -17,6 +18,13 @@ export const Navigation = ({navigation}) => {
                 title="Calendar" 
                 onPress={()=> navigation.navigate("Calendar")}         
          />
-       </View>
-    );
-}
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  buttonView: {
+    marginTop: 100,
+  },
+});

@@ -18,13 +18,12 @@ export const ButtonDark = styled.TouchableOpacity`
 `;
 
 export const ButtonLight = styled.TouchableOpacity`
-  width: 80%;
+  width: 40%;
   height: 56px;
   background-color: #2c7da0;
   border-radius: 12px;
   justify-content: center;
   align-items: center;
-  margin-Top: ${props=> `${props.MarginTButtom}px`};
 `;
 
 export const ButtonDarkSmall = styled.TouchableOpacity`
@@ -44,11 +43,3 @@ export const ButtonLightSmall = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 `;
-
-export const Cancelation = styled.Text`
-    margin-top: 37px;
-    text-decoration: underline;
-    font-size: 15px;
-    color:#ffff;
-    font-family:"MontserratAlternates_300Light";
-`
