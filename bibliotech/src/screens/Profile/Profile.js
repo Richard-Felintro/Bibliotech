@@ -1,6 +1,6 @@
 
 import { Button, ScrollView, Text, View } from "react-native";
-import { ContainerImage, ContainerProfile, ImageComponent, PhotoContent, PhotoProfile, ViewIcon, ViewPhotoIcon } from "../../components/Container/Container";
+import { ContainerImage, ContainerProfile, ImageComponent, PhotoContent, PhotoProfile, ViewIcon, ViewPhotoIcon } from "../../components/Container/Style";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Input, ViewInput } from "../../components/Input/Style";
 import { ButtonLight, ButtonText } from "../../components/Button/Style";

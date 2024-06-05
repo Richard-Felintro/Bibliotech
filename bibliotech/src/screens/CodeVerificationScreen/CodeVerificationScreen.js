@@ -4,7 +4,7 @@ import {
   ContainerInput,
   ContainerRow,
   ContainerText,
-  GradientContainer,
+  ContainerGradient,
 } from "../../components/Container/Style";
 import { Input } from "../../components/Input/Input";
 import {
@@ -37,7 +37,7 @@ export const CodeVerificationScreen = () => {
   }
   return (
     <Container>
-      <GradientContainer>
+      <ContainerGradient>
         <LogoLogin
           width={200}
           height={160}
@@ -82,7 +82,7 @@ export const CodeVerificationScreen = () => {
         <LinkButton>
           <LinkText>Cancelar</LinkText>
         </LinkButton>
-      </GradientContainer>
+      </ContainerGradient>
     </Container>
   );
 };

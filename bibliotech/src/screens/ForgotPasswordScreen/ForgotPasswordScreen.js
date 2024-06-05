@@ -1,6 +1,7 @@
 import { Image } from "react-native";
 import {
   Container,
+  ContainerGradient,
   ContainerInput,
   ContainerText,
   GradientContainer,
@@ -15,7 +16,7 @@ import { TextContent } from "../../components/Text/Style";
 export const ForgotPasswordScreen = () => {
   return (
     <Container>
-      <GradientContainer>
+      <ContainerGradient>
         <LogoLogin source={require("../../assets/LOGO.png")} />
 
         <ContainerText>
@@ -36,7 +37,7 @@ export const ForgotPasswordScreen = () => {
         <LinkButton>
           <LinkText>Cancelar</LinkText>
         </LinkButton>
-      </GradientContainer>
+      </ContainerGradient>
     </Container>
   );
 };
