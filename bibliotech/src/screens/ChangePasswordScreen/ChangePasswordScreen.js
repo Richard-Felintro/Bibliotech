@@ -1,9 +1,9 @@
 import { Image } from "react-native";
 import {
   Container,
+  ContainerGradient,
   ContainerInput,
   ContainerText,
-  GradientContainer,
 } from "../../components/Container/Style";
 import { Input } from "../../components/Input/Input";
 import { ButtonDark, ButtonText } from "../../components/Button/Style";
@@ -15,7 +15,7 @@ import { TextContent } from "../../components/Text/Style";
 export const ChangePasswordScreen = () => {
   return (
     <Container>
-      <GradientContainer>
+      <ContainerGradient>
         <LogoLogin
           width={200}
           height={160}
@@ -39,7 +39,7 @@ export const ChangePasswordScreen = () => {
         <LinkButton>
           <LinkText>Cancelar</LinkText>
         </LinkButton>
-      </GradientContainer>
+      </ContainerGradient>
     </Container>
   );
 };

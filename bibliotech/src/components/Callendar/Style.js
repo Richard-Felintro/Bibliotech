@@ -2,7 +2,7 @@ import styled from "styled-components";
     
 import CalendarStrip from "react-native-calendar-strip"
 
-import { ContainerProfile } from "../Container/Container";
+import { ContainerProfile } from "../Container/Style";
 
 export const StyledCalendarStrip = styled(CalendarStrip)`
     height: 100px;

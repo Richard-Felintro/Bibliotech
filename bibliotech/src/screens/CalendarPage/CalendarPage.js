@@ -1,16 +1,14 @@
 import { Button, ScrollView } from "react-native";
 import { CalendarioCompleto } from "../../components/Callendar/Index";
-import {
-  Subtitle,
-  TitleSelecao,
-} from "../../components/Callendar/Style";
-import { ContainerProfile } from "../../components/Container/Container";
+import { Subtitle, TitleSelecao } from "../../components/Callendar/Style";
 import {
   ButtonLight,
   ButtonText,
   Cancelation,
 } from "../../components/Button/Style";
 import { useState } from "react";
+import { ContainerProfile } from "../../components/Container/Style";
+import { LinkButton, LinkText } from "../../components/Link/Style";
 
 export const Calendar = ({
   Top = 40,
@@ -42,7 +40,9 @@ export const Calendar = ({
           <ButtonText>CONTINUAR</ButtonText>
         </ButtonLight>
 
-        <Cancelation>Cancelar</Cancelation>
+        <LinkButton>
+          <LinkText>Cancelar</LinkText>
+        </LinkButton>
       </ContainerProfile>
     </ScrollView>
   );

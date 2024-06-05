@@ -1,4 +1,5 @@
 import { Button, ScrollView, Text, View } from "react-native";
+<<<<<<< HEAD
 import {
   ContainerImage,
   ContainerProfile,
@@ -9,6 +10,10 @@ import {
   ViewPhotoIcon,
 } from "../../components/Container/Container";
 import { MaterialIcons } from "@expo/vector-icons";
+=======
+import { ContainerImage, ContainerProfile, ImageComponent, PhotoContent, PhotoProfile, ViewIcon, ViewPhotoIcon } from "../../components/Container/Style";
+import { MaterialIcons } from '@expo/vector-icons';
+>>>>>>> origin/develop
 import { Input, ViewInput } from "../../components/Input/Style";
 import { ButtonLight, ButtonText } from "../../components/Button/Style";
 export const Profile = ({ PadContainer = 20 }) => {

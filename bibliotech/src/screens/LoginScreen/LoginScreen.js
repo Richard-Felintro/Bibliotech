@@ -1,7 +1,7 @@
 import {
   Container,
   ContainerInput,
-  GradientContainer,
+  ContainerGradient,
 } from "../../components/Container/Style";
 import { Input } from "../../components/Input/Input";
 import { ButtonDark, ButtonText } from "../../components/Button/Style";
@@ -11,7 +11,7 @@ import { LogoLogin } from "../../components/Logo/Style";
 export const LoginScreen = () => {
   return (
     <Container>
-      <GradientContainer>
+      <ContainerGradient>
         <LogoLogin
           source={require("../../assets/LOGO.png")}
         />
@@ -27,7 +27,7 @@ export const LoginScreen = () => {
         <LinkButton>
           <LinkText>Esqueceu sua senha?</LinkText>
         </LinkButton>
-      </GradientContainer>
+      </ContainerGradient>
     </Container>
   );
 };
