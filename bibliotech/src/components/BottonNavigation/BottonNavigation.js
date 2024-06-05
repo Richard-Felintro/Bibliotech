@@ -2,6 +2,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ContentIcon } from "./Style";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { Main } from "../../screens/Main/Main";
+import { Profile } from "../../screens/Profile/Profile";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -41,7 +43,8 @@ export const BottomNavigation = () => {
         },
       })}
     >
-      <BottomTab.Screen name="Main" />
+      <BottomTab.Screen name="Main" component={Main} />
+      <BottomTab.Screen name="Profile" component={Profile} />
     </BottomTab.Navigator>
   );
 };
