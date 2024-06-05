@@ -15,7 +15,7 @@ import { TextContent } from "../../components/Text/Style";
 export const ForgotPasswordScreen = () => {
   return (
     <Container>
-      <GradientContainer>
+      <ContainerGradient>
         <LogoLogin source={require("../../assets/LOGO.png")} />
 
         <ContainerText>
@@ -36,7 +36,7 @@ export const ForgotPasswordScreen = () => {
         <LinkButton>
           <LinkText>Cancelar</LinkText>
         </LinkButton>
-      </GradientContainer>
+      </ContainerGradient>
     </Container>
   );
 };

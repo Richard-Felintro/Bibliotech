@@ -37,7 +37,7 @@ export const CodeVerificationScreen = () => {
   }
   return (
     <Container>
-      <GradientContainer>
+      <ContainerGradient>
         <LogoLogin
           width={200}
           height={160}
@@ -82,7 +82,7 @@ export const CodeVerificationScreen = () => {
         <LinkButton>
           <LinkText>Cancelar</LinkText>
         </LinkButton>
-      </GradientContainer>
+      </ContainerGradient>
     </Container>
   );
 };

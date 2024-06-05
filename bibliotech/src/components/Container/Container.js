@@ -135,7 +135,6 @@ export const ViewPhotoIcon = styled.TouchableOpacity`
     right: 29;
 `
 
-
 export const ContainerImage = styled.View`
        height:177;
     width:181;
