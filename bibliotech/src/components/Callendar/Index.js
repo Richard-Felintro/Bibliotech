@@ -89,7 +89,7 @@ export const CalendarioCompleto = ({ selecionarData, dataSelecionada }) => {
     <Calendar
       style={{
         width: 360,
-        alignSelf: 'center',
+        // alignSelf:'center',
         backgroundColor: 'transparent',
         
         // marginBottom: ,

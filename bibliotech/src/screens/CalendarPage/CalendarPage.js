@@ -4,6 +4,7 @@ import { ContainerSelectPage, Subtitle, TitleSelecao } from "../../components/Ca
 import { ContainerProfile } from "../../components/Container/Container"
 import { ButtonLight, ButtonText, Cancelation } from "../../components/Button/Style"
 import { useState } from "react"
+import { ModalConfirm } from "../../components/Modal/Index"
 
 export const Calendar = ({
     Top = 40,
@@ -12,6 +13,7 @@ export const Calendar = ({
      BottomSubtitle=10,
 })=>{
     const [selecionarData, setSelecionarData] = useState(null)
+    const[showModalConfirm, setShowModalConfirm] = useState(false)
     return(
         <ScrollView
             style={{
@@ -38,13 +40,20 @@ export const Calendar = ({
             <Subtitle>8 de Julho</Subtitle>
 
             <ButtonLight
+                onPress={()=> setShowModalConfirm(true)}
                 MarginTButtom={MarginTButtom}
             >
                 <ButtonText>CONTINUAR</ButtonText>
             </ButtonLight>
 
             <Cancelation>Cancelar</Cancelation>
+            <ModalConfirm
+        setShowModalConfirm={setShowModalConfirm}
+            visible={showModalConfirm}
+        />
         </ContainerProfile>
+      
         </ScrollView>
+      
     )
 }

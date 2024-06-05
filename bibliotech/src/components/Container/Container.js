@@ -7,7 +7,7 @@ export const ContainerProfile = styled.SafeAreaView`
     align-items:center;
     margin-top:40px;
     padding:${props=> `${props.PadContainer}px`};
-
+    /* justify-content:center; */
 `
 
 export const PhotoProfile = styled.View`
