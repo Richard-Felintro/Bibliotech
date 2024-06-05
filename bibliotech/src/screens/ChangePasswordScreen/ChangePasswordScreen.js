@@ -1,9 +1,9 @@
 import { Image } from "react-native";
 import {
   Container,
+  ContainerGradient,
   ContainerInput,
   ContainerText,
-  GradientContainer,
 } from "../../components/Container/Style";
 import { Input } from "../../components/Input/Input";
 import { ButtonDark, ButtonText } from "../../components/Button/Style";

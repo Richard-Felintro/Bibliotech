@@ -4,7 +4,7 @@ import {
   ContainerInput,
   ContainerRow,
   ContainerText,
-  GradientContainer,
+  ContainerGradient,
 } from "../../components/Container/Style";
 import { Input } from "../../components/Input/Input";
 import {

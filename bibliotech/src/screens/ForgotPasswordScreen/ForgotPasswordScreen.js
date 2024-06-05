@@ -1,6 +1,7 @@
 import { Image } from "react-native";
 import {
   Container,
+  ContainerGradient,
   ContainerInput,
   ContainerText,
   GradientContainer,
