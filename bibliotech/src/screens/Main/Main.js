@@ -4,13 +4,14 @@ import { BtnSelectedView } from "../../components/BtnListComponent/Style";
 import {
   ContainerMain,
   ContainerUser,
-} from "../../components/Container/Container";
+} from "../../components/Container/Style";
 import { Header } from "../../components/Header/Header";
 // import { ListBook } from "../../components/ListBook/ListBook";
 import { CardList } from "../../components/CardList/CardList";
 import { FlatListBook } from "../../components/ListBook/Style";
 import { Text } from "react-native";
 import { BtnReserve } from "../../components/BtnReserve/BtnReserve";
+import { RequestModal } from "../../components/RequestModal/RequestModal";
 
 const Livros = [
   {
@@ -45,6 +46,7 @@ const Livros = [
 
 export const Main = () => {
   const [statusLista, setStatusLista] = useState("lendo");
+  const [showRequestModal, setShowRequestModal] = useState(false);
 
   function test1() {
     setStatusLista("lendo");
@@ -57,7 +59,6 @@ export const Main = () => {
   }, [statusLista]);
 
   return (
-    // <ContainerUser>
     <ContainerMain>
       <Header
         source={require("../../assets/imageProfile.jpg")}
@@ -98,8 +99,8 @@ export const Main = () => {
         showsVerticalScrollIndicator={false}
       />
 
-      <BtnReserve />
+      <BtnReserve onPress={() => setShowRequestModal(true)}/>
+      <RequestModal visible={showRequestModal} showModal={setShowRequestModal}/>
     </ContainerMain>
-    // </ContainerUser>
   );
 };

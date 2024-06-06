@@ -4,7 +4,7 @@ import {
   Subtitle,
   TitleSelecao,
 } from "../../components/Callendar/Style";
-import { ContainerProfile } from "../../components/Container/Container";
+import { ContainerProfile } from "../../components/Container/Style";
 import {
   ButtonLight,
   ButtonText,

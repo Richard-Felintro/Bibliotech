@@ -7,7 +7,7 @@ import { Input } from "../../components/Input/Input";
 import { ButtonDark, ButtonText } from "../../components/Button/Style";
 import { LinkButton, LinkText } from "../../components/Link/Style";
 import { LogoLogin } from "../../components/Logo/Style";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../services/service";
 
@@ -39,11 +39,11 @@ export const LoginScreen = ({ navigation }) => {
   }
 
   useEffect(() => {
-    profileLoad();
+    LoadProfile();
   }, []);
 
   async function HandleForgotPassword() {
-    navigation.navigate("ForgotPassword");
+    navigation.replace("ForgotPassword");
   }
 
   return (

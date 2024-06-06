@@ -49,3 +49,8 @@ export const TextFieldBox = styled.View`
   flex-direction: row;
   margin: 1px;
 `;
+
+export const TextAlert = styled(TextContent)`
+  font-size: 16px;
+  color: #61a5c2;
+`;

@@ -29,7 +29,7 @@ export const ButtonLight = styled.TouchableOpacity`
 export const ButtonDarkSmall = styled.TouchableOpacity`
   width: 45%;
   height: 56px;
-  background-color: #001b21;
+  background-color: #012141;
   border-radius: 12px;
   justify-content: center;
   align-items: center;

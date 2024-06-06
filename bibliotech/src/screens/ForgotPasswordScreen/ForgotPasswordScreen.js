@@ -14,9 +14,15 @@ import { Title } from "../../components/Title/Style";
 import { TextContent } from "../../components/Text/Style";
 
 export const ForgotPasswordScreen = ({navigation}) => {
+
+  async function HandleContinue(){
+    navigation.navigate("CodeVerification")
+  }
+  
   async function HandleCancel() { 
     navigation.navigate("Login");
   }
+
   return (
     <Container>
       <ContainerGradient>
@@ -33,7 +39,7 @@ export const ForgotPasswordScreen = ({navigation}) => {
         <ContainerInput>
           <Input placeholder={"EMAIL"} />
         </ContainerInput>
-        <ButtonDark>
+        <ButtonDark onPress={() => HandleContinue()}>
           <ButtonText>ENVIAR</ButtonText>
         </ButtonDark>
 
