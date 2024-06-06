@@ -18,6 +18,9 @@ export const TitleSelecao = styled.Text`
     color:#ffff;
     margin-bottom: 10px;
 `
+// export const TitleModal = styled(TitleSelecao)`
+//     font-size:12px;
+// `
 
 export const ContainerSelectPage = styled(ContainerProfile)`
     /* padding: 60px 5% 30px;

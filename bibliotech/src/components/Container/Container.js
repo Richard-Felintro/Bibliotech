@@ -148,8 +148,38 @@ export const ImageComponent = styled.Image`
     border-radius:100px;
 `
 export const ConfirmModal = styled.View`
-    background-color:#2C7DA0;
+    background-color:transparent;
     flex:1;
+    align-items: center;
+    justify-content: center;
+
+
+`
+
+export const ModalContent = styled.View`
+    padding: 50px 30px 60px 40px;
+    width: 90%;
+    border-radius: 10px;
+    background-color: #013A63;
+    align-items: center;
+    justify-content:center;
+    
+    /* text-align:center; */
+`
+
+export const ContainerTextModal = styled.View`
+
+  margin-top: ${props => `${props.MargintText}px`};
+  align-items:flex-start;
+  margin-right:45px;
+  gap:15px;
+`
+
+export const ViewRow = styled.View`
+  flex-direction: row;
+  gap:15px;
+
+  margin-top:10px;
 `
 
 

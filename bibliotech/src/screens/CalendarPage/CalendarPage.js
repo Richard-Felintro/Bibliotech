@@ -14,6 +14,7 @@ import { LinkButton, LinkText } from "../../components/Link/Style";
 import { ModalConfirm } from "../../components/Modal/Index";
 
 export const Calendar = ({
+  navigation,
   Top = 40,
   PadContainer = 10,
   MarginTButtom = 64,
@@ -53,7 +54,9 @@ export const Calendar = ({
           <ButtonText>CONTINUAR</ButtonText>
         </ButtonLight>
 
-        <LinkButton>
+        <LinkButton
+          onPress={()=> navigation.replace("Main")}
+        >
           <LinkText>Cancelar</LinkText>
         </LinkButton>
 

@@ -4,7 +4,11 @@ import { ContainerImage, ContainerProfile, ImageComponent, PhotoContent, PhotoPr
 import { MaterialIcons } from '@expo/vector-icons';
 import { Input, ViewInput } from "../../components/Input/Style";
 import { ButtonLight, ButtonText } from "../../components/Button/Style";
-export const Profile = ({PadContainer=10}) => {
+import { ModalLogout } from "../../components/Modal/Index";
+import { useState } from "react";
+export const Profile = ({PadContainer=10, navigation}) => {
+
+    const [showLogout, setShowLogout] = useState(false);
     return (
         <Scroll>
         <ContainerProfile
@@ -42,11 +46,19 @@ export const Profile = ({PadContainer=10}) => {
                 />
             </ViewInput>
 
-            <ButtonLight>
+            <ButtonLight
+                onPress={()=> setShowLogout(true)}
+            >
                 <ButtonText>SAIR</ButtonText>
             </ButtonLight>
           
+            <ModalLogout
+            navigation={navigation}
+            setShowLogout={setShowLogout}
+            visible={showLogout}
+          />
         </ContainerProfile>
+        
         </Scroll>
         
     )
