@@ -13,7 +13,10 @@ import { LogoLogin } from "../../components/Logo/Style";
 import { Title } from "../../components/Title/Style";
 import { TextContent } from "../../components/Text/Style";
 
-export const ForgotPasswordScreen = () => {
+export const ForgotPasswordScreen = ({navigation}) => {
+  async function HandleCancel() { 
+    navigation.navigate("Login");
+  }
   return (
     <Container>
       <ContainerGradient>
@@ -34,7 +37,7 @@ export const ForgotPasswordScreen = () => {
           <ButtonText>ENVIAR</ButtonText>
         </ButtonDark>
 
-        <LinkButton>
+        <LinkButton onPress={() => HandleCancel()}>
           <LinkText>Cancelar</LinkText>
         </LinkButton>
       </ContainerGradient>
