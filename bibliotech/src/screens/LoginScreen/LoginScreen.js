@@ -38,6 +38,10 @@ export const LoginScreen = ({ navigation }) => {
     }
   }
 
+  useEffect(() => {
+    profileLoad();
+  }, []);
+
   async function HandleForgotPassword() {
     navigation.navigate("ForgotPassword");
   }
