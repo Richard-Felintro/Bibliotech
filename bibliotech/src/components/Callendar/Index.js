@@ -113,7 +113,7 @@ export const CalendarioCompleto = ({ selecionarData, dataSelecionada }) => {
       theme={{
         calendarBackground: '#001B21',
         arrowColor: '#ACABB7',
-        textDisabledColor: '#ffff',
+        textDisabledColor: '#c2c2c2',
         todayTextColor: '#ffff',
         selectedDayTextColor: '#001B21',
         selectedDayBackgroundColor: '#2c7da0',

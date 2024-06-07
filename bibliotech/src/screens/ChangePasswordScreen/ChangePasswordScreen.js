@@ -13,7 +13,36 @@ import { Title } from "../../components/Title/Style";
 import { TextAlert, TextContent } from "../../components/Text/Style";
 import { useState } from "react";
 
-export const ChangePasswordScreen = () => {
+import * as Notifications from "expo-notifications"
+
+// Notifications.requestPermissionsAsync();
+
+Notifications.setNotificationHandler({
+  handleNotification: async()=>({
+    shpuldShowAlert: true,
+    shouldPlaySound:false,
+    shouldSetBadge:true,
+  })
+})
+export const ChangePasswordScreen = ({navigation}) => {
+
+  const handleCallNotifications = async()=>{
+    const {status} = await Notifications.getPermissionsAsync();
+
+    if(status !== "granted"){
+      alert("Notificações não ativadas!!!")
+      return;
+    }
+
+    await Notifications.scheduleNotificationAsync({
+      content:{
+        title:"Senha Alterada com sucesso!!!",
+        body:"Notificação recebida"
+      },
+      trigger: null
+    })
+  }
+ 
   const [senha1, setSenha1] = useState("");
   const [senha2, setSenha2] = useState("");
   const [alert, setAlert] = useState("");
@@ -21,6 +50,8 @@ export const ChangePasswordScreen = () => {
   async function HandleContinue() {
     if (senha1 === senha2 && senha1 != null) {
       navigation.navigate("Main");
+
+      handleCallNotifications();
     }
     setAlert("Ambas as senhas devem ser idênticas");
   }
