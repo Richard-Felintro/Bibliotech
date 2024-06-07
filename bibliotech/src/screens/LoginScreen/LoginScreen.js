@@ -10,6 +10,7 @@ import { LogoLogin } from "../../components/Logo/Style";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../services/service";
+import { userDecodeToken } from "../../utils/Auth";
 
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
@@ -24,6 +25,8 @@ export const LoginScreen = ({ navigation }) => {
       .then(async (response) => {
         await AsyncStorage.setItem("token", JSON.stringify(response.data));
         console.log(response);
+        const teste = await userDecodeToken()
+        console.log(teste);
         navigation.replace("Main");
       })
       .catch((error) => {

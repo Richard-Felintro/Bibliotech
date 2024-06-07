@@ -53,7 +53,7 @@ export const ChangePasswordScreen = () => {
         </ContainerInput>
 
         <ButtonDark onPress={() => HandleContinue()}>
-          <ButtonText>LOGIN</ButtonText>
+          <ButtonText>CONFIRMAR</ButtonText>
         </ButtonDark>
 
         <LinkButton onPress={() => HandleCancel()}>

@@ -48,7 +48,7 @@ export const HeaderProfileName = styled.Text`
 `;
 export const HeaderProfileId = styled.Text`
   font-size: 14px;
-  font-family: "MontserratAlternates_500Light";
+  font-family: "MontserratAlternates_400Regular";
   height: auto;
   color: #ffffff;
 `;

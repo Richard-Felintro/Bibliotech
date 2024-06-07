@@ -47,6 +47,9 @@ const Livros = [
 export const Main = () => {
   const [statusLista, setStatusLista] = useState("lendo");
   const [showRequestModal, setShowRequestModal] = useState(false);
+  useEffect(() => {
+
+  },[])
 
   function test1() {
     setStatusLista("lendo");
