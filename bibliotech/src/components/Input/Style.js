@@ -30,7 +30,7 @@ export const InputCodeBox = styled.View`
 `;
 
 export const InputCode = styled.TextInput.attrs({
-  placeholderTextColor: "#ffff",
+  placeholderTextColor: "#bbb",
 })`
   width: 100%;
   padding: 10px;

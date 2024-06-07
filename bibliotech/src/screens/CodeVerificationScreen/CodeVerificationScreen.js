@@ -20,9 +20,20 @@ import { TextContent, TextHighlight } from "../../components/Text/Style";
 import { InputCode, InputCodeBox } from "../../components/Input/Style";
 import { useRef, useState } from "react";
 
-export const CodeVerificationScreen = () => {
+export const CodeVerificationScreen = ({ navigation }) => {
   const [code, setCode] = useState(false);
   const inputs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+
+  async function HandleContinue() {
+    navigation.navigate("ChangePassword");
+  }
+  async function HandleResend() {
+    console.log("Unfornately unimplemented :#");
+  }
+
+  async function HandleCancel() { 
+    navigation.navigate("ForgotPassword");
+  }
 
   async function focusNextInput(index) {
     if (index < inputs.length - 1) {
@@ -54,6 +65,7 @@ export const CodeVerificationScreen = () => {
             {[0, 1, 2, 3].map((index) => (
               <InputCodeBox key={index}>
                 <InputCode
+                  maxLength={1}
                   keyboardType="numeric"
                   ref={inputs[index]}
                   onChangeText={(txt) => {
@@ -71,15 +83,15 @@ export const CodeVerificationScreen = () => {
         </ContainerInput>
 
         <ContainerRow>
-          <ButtonDarkSmall>
+          <ButtonDarkSmall onPress={() => HandleContinue()}>
             <ButtonText>ENVIAR</ButtonText>
           </ButtonDarkSmall>
-          <ButtonLightSmall>
+          <ButtonLightSmall onPress={() => HandleResend()}>
             <ButtonText>REENVIAR</ButtonText>
           </ButtonLightSmall>
         </ContainerRow>
 
-        <LinkButton>
+        <LinkButton onPress={() => HandleCancel()}>
           <LinkText>Cancelar</LinkText>
         </LinkButton>
       </ContainerGradient>
