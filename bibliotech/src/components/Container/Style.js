@@ -83,13 +83,20 @@ export const ContainerUser = styled.ScrollView`
 `;
 
 export const ContainerProfile = styled.SafeAreaView`
-  background-color: #001b21;
-  flex: 1;
-  align-items: center;
-  margin-top: 40px;
-  padding:${(props) => `${props.PadContainer}px`};
-`;
 
+    background-color:#001B21;
+    flex:1;
+    align-items:center;
+    margin-top:40px;
+    padding:${props=> `${props.PadContainer}px`};
+
+`
+export const Scroll = styled.ScrollView`
+  flex:1;
+  /* height:100%; */
+  width:100%;
+  /* align-items:center; */
+`
 export const PhotoProfile = styled.View`
   /* border: 0.5px solid white; */
   /* background-color: #ffff; */

@@ -33,6 +33,13 @@ export const BookImage = styled.Image`
   margin-left: 20px;
 `;
 
+export const BookImageModal = styled.Image`
+  width:146px;
+  height:252px;
+  border-radius:8px;
+  margin-bottom: ${props=> `${props.MbImage}px`}
+`
+
 export const BookInfosView = styled.View`
   margin-left: 15px;
 `;

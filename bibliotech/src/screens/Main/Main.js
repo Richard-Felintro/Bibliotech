@@ -54,7 +54,7 @@ export const Main = ({ navigation }) => {
     setStatusLista("lido");
   }
   useEffect(() => {
-    console.log(statusLista);
+    // console.log(statusLista);
   }, [statusLista]);
 
   function GoToBookScreen() {

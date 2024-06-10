@@ -17,7 +17,11 @@ export const TitleSelecao = styled.Text`
     margin-top:${props=> `${props.Top}px`};
     margin-bottom: 10px;
     color:#ffff;
+    margin-bottom: 10px;
 `
+// export const TitleModal = styled(TitleSelecao)`
+//     font-size:12px;
+// `
 
 export const ContainerSelectPage = styled(ContainerProfile)`
     /* padding: 60px 5% 30px;

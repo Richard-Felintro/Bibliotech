@@ -11,10 +11,41 @@ import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../services/service";
 
+import * as Notifications from "expo-notifications"
+
+Notifications.requestPermissionsAsync();
+
+Notifications.setNotificationHandler({
+    handleNotification: async()=>({
+      shouldShowAlert: true,
+
+      shouldPlaySound:false,
+
+      shouldSetBadge:true,
+    })
+})
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
 
+
+
+  const handleCallNotifications = async()=>{
+    const {status} = await Notifications.getPermissionsAsync();
+
+    if(status !== "granted"){
+      alert("Notificações não ativadas!!!")
+      return;
+    }
+
+    await Notifications.scheduleNotificationAsync({
+      content:{
+        title:"Bem vindo ao Bibliotech!",
+        body:"Notificação recebida"
+      },
+      trigger: null
+    })
+  }
   async function HandleLogin() {
     await api
       .post("/Login", {
@@ -35,6 +66,7 @@ export const LoginScreen = ({ navigation }) => {
   async function LoadProfile() {
     if (email !== null) {
       HandleLogin();
+      handleCallNotifications();
     }
   }
 

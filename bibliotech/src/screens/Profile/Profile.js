@@ -5,6 +5,7 @@ import {
   ImageComponent,
   PhotoContent,
   PhotoProfile,
+  Scroll,
   ViewIcon,
   ViewPhotoIcon,
 } from "../../components/Container/Style";
@@ -13,7 +14,9 @@ import { Input, ViewInput } from "../../components/Input/Style";
 import { ButtonLight, ButtonText } from "../../components/Button/Style";
 import { useState } from "react";
 import { CameraModal } from "../../components/CameraModal/CameraModal";
+import { ModalLogout } from "../../components/Modal/Index";
 export const Profile = ({ PadContainer = 10, navigation }) => {
+  const [showLogout, setShowLogout] = useState(false);
   const [showCamera, setShowModalCamera] = useState(false);
   return (
     <ScrollView
@@ -51,6 +54,11 @@ export const Profile = ({ PadContainer = 10, navigation }) => {
       <CameraModal
         visible={showCamera}
         setShowModalCamera={setShowModalCamera}
+      />
+      <ModalLogout
+        navigation={navigation}
+        setShowLogout={setShowLogout}
+        visible={showLogout}
       />
     </ScrollView>
   );
