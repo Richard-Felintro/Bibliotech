@@ -1,9 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ContentIcon } from "./Style";
-import { SimpleLineIcons } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
+
 import { Main } from "../../screens/Main/Main";
 import { Profile } from "../../screens/Profile/Profile";
+import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -11,7 +13,7 @@ export const BottomNavigation = () => {
   return (
     <BottomTab.Navigator
       initialRouteName="Main"
-      screenOptions={() => ({
+      screenOptions={({ route }) => ({
         tabBarStyle: {
           backgroundColor: "#012141",
           height: 64,
@@ -21,25 +23,28 @@ export const BottomNavigation = () => {
         tabBarShowLabel: false,
         headerShown: false,
 
-        tapBarIcon: ({ focused }) => {
-          return (
-            <>
-              <ContentIcon
-                tabBarActiveBackgroundColor={
-                  focused ? "#ffffff" : "transparent"
-                }
-              >
-                <SimpleLineIcons name="home" size={29} color="#ffffff" />
+        tabBarIcon: ({ focused }) => {
+          if (route.name === "Main") {
+            return (
+              <ContentIcon>
+                <MaterialCommunityIcons
+                  name="home-variant"
+                  size={28}
+                  color={focused ? "#468faf" : "#ffffff"}
+                />
               </ContentIcon>
-              <ContentIcon
-                tabBarActiveBackgroundColor={
-                  focused ? "#ffffff" : "transparent"
-                }
-              >
-                <Ionicons name="person" size={24} color="#ffffff" />
+            );
+          } else {
+            return (
+              <ContentIcon>
+                <Ionicons
+                  name="person"
+                  size={28}
+                  color={focused ? "#468faf" : "#ffffff"}
+                />
               </ContentIcon>
-            </>
-          );
+            );
+          }
         },
       })}
     >

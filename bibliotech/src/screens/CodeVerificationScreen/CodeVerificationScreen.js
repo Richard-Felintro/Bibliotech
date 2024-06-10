@@ -20,7 +20,7 @@ import { TextContent, TextHighlight } from "../../components/Text/Style";
 import { InputCode, InputCodeBox } from "../../components/Input/Style";
 import { useRef, useState } from "react";
 
-export const CodeVerificationScreen = () => {
+export const CodeVerificationScreen = ({navigation}) => {
   const [code, setCode] = useState(false);
   const inputs = [useRef(null), useRef(null), useRef(null), useRef(null)];
 
@@ -71,7 +71,7 @@ export const CodeVerificationScreen = () => {
         </ContainerInput>
 
         <ContainerRow>
-          <ButtonDarkSmall>
+          <ButtonDarkSmall onPress={() => navigation.navigate("ChangePassword")}>
             <ButtonText>ENVIAR</ButtonText>
           </ButtonDarkSmall>
           <ButtonLightSmall>
@@ -79,7 +79,7 @@ export const CodeVerificationScreen = () => {
           </ButtonLightSmall>
         </ContainerRow>
 
-        <LinkButton>
+        <LinkButton onPress={() => navigation.navigate("Login")}>
           <LinkText>Cancelar</LinkText>
         </LinkButton>
       </ContainerGradient>

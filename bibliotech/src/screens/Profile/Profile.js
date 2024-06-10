@@ -1,5 +1,4 @@
 import { Button, ScrollView, Text, View } from "react-native";
-<<<<<<< HEAD
 import {
   ContainerImage,
   ContainerProfile,
@@ -8,15 +7,14 @@ import {
   PhotoProfile,
   ViewIcon,
   ViewPhotoIcon,
-} from "../../components/Container/Container";
+} from "../../components/Container/Style";
 import { MaterialIcons } from "@expo/vector-icons";
-=======
-import { ContainerImage, ContainerProfile, ImageComponent, PhotoContent, PhotoProfile, ViewIcon, ViewPhotoIcon } from "../../components/Container/Style";
-import { MaterialIcons } from '@expo/vector-icons';
->>>>>>> origin/develop
 import { Input, ViewInput } from "../../components/Input/Style";
 import { ButtonLight, ButtonText } from "../../components/Button/Style";
-export const Profile = ({ PadContainer = 20 }) => {
+import { useState } from "react";
+import { CameraModal } from "../../components/CameraModal/CameraModal";
+export const Profile = ({ PadContainer = 10, navigation }) => {
+  const [showCamera, setShowModalCamera] = useState(false);
   return (
     <ScrollView
       style={{
@@ -29,7 +27,7 @@ export const Profile = ({ PadContainer = 20 }) => {
           <ContainerImage>
             <ImageComponent source={require("../../../assets/Profile2.jpg")} />
           </ContainerImage>
-          <ViewPhotoIcon onPress={() => alert("fotos")}>
+          <ViewPhotoIcon onPress={() => setShowModalCamera(true)}>
             <MaterialIcons name="add-a-photo" size={24} color="#ffff" />
           </ViewPhotoIcon>
         </PhotoProfile>
@@ -45,10 +43,15 @@ export const Profile = ({ PadContainer = 20 }) => {
           <Input placeholder="TURMA" />
         </ViewInput>
 
-        <ButtonLight>
+        <ButtonLight onPress={() => navigation.navigate("Login")}>
           <ButtonText>SAIR</ButtonText>
         </ButtonLight>
       </ContainerProfile>
+
+      <CameraModal
+        visible={showCamera}
+        setShowModalCamera={setShowModalCamera}
+      />
     </ScrollView>
   );
 };

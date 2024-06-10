@@ -9,10 +9,10 @@ import {
 } from "./Style";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export const Header = ({ source, headerName, headerID }) => {
+export const Header = ({ source, headerName, headerID, onPress1, onPress2 }) => {
   return (
     <GradientHeader>
-      <HeaderProfileView>
+      <HeaderProfileView onPress={onPress1}>
         <HeaderProfileImg source={source} />
 
         <HeaderProfileNameIdView>
@@ -21,7 +21,7 @@ export const Header = ({ source, headerName, headerID }) => {
         </HeaderProfileNameIdView>
       </HeaderProfileView>
 
-      <BtnExit>
+      <BtnExit onPress={onPress2}>
         <Ionicons name="exit-outline" size={30} color="white" />
       </BtnExit>
     </GradientHeader>

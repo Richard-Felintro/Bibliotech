@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import { BtnListComponent } from "../../components/BtnListComponent/BtnListComponent";
 import { BtnSelectedView } from "../../components/BtnListComponent/Style";
-import {
-  ContainerMain,
-  ContainerUser,
-} from "../../components/Container/Style";
+import { ContainerMain, ContainerUser } from "../../components/Container/Style";
 import { Header } from "../../components/Header/Header";
 // import { ListBook } from "../../components/ListBook/ListBook";
 import { CardList } from "../../components/CardList/CardList";
 import { FlatListBook } from "../../components/ListBook/Style";
 import { Text } from "react-native";
 import { BtnReserve } from "../../components/BtnReserve/BtnReserve";
+import { BookModal } from "../../components/BookModal/BookModal";
 
 const Livros = [
   {
@@ -43,8 +41,9 @@ const Livros = [
   },
 ];
 
-export const Main = () => {
+export const Main = ({ navigation }) => {
   const [statusLista, setStatusLista] = useState("lendo");
+  const [ showBookModal, setShowBookModal] = useState(false)
 
   function test1() {
     setStatusLista("lendo");
@@ -56,6 +55,11 @@ export const Main = () => {
     console.log(statusLista);
   }, [statusLista]);
 
+  function GoToBookScreen() {
+    navigation.navigate("BookInfo")
+    setShowBookModal(false)
+  }
+
   return (
     // <ContainerUser>
     <ContainerMain>
@@ -63,6 +67,8 @@ export const Main = () => {
         source={require("../../assets/imageProfile.jpg")}
         headerName={"Pedro Félix Gentilezza"}
         headerID={"1096526001SP"}
+        onPress1={() => navigation.navigate("Profile")}
+        onPress2={() => navigation.navigate("Login")}
       />
 
       <BtnSelectedView>
@@ -92,10 +98,19 @@ export const Main = () => {
               returnDate={item.dataEntrega}
               status={item.situacao}
               source={require("../../assets/bookImage.jpg")}
+              onPress={() => setShowBookModal(true)}
             />
           )
         }
         showsVerticalScrollIndicator={false}
+      />
+
+      <BookModal 
+        visible={showBookModal}
+        setShowBookModal={setShowBookModal}
+        navigation={navigation}
+        onPress={() => GoToBookScreen()}
+        onPressCancel={() => setShowBookModal(false)}
       />
 
       <BtnReserve />

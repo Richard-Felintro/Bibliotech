@@ -12,7 +12,7 @@ import { LogoLogin } from "../../components/Logo/Style";
 import { Title } from "../../components/Title/Style";
 import { TextContent } from "../../components/Text/Style";
 
-export const ChangePasswordScreen = () => {
+export const ChangePasswordScreen = ({ navigation }) => {
   return (
     <Container>
       <ContainerGradient>
@@ -32,11 +32,11 @@ export const ChangePasswordScreen = () => {
           <Input placeholder={"CONFIRMAR SENHA"} />
         </ContainerInput>
 
-        <ButtonDark>
-          <ButtonText>LOGIN</ButtonText>
+        <ButtonDark onPress={() => navigation.navigate("Login")}>
+          <ButtonText>CONFIRMAR</ButtonText>
         </ButtonDark>
 
-        <LinkButton>
+        <LinkButton onPress={() => navigation.navigate("Login")}>
           <LinkText>Cancelar</LinkText>
         </LinkButton>
       </ContainerGradient>

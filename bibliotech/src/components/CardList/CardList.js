@@ -6,6 +6,7 @@ import {
   BookReturnDate,
   BookReturnDateView,
   Devolution,
+  Devolution2,
   Line,
   ListBookCard,
   ListBookView,
@@ -47,7 +48,7 @@ export const CardList = ({
             </>
           ) : status == "lido" ? (
             <>
-              <Devolution>Lido em: {returnDate}</Devolution>
+              <Devolution2>Lido em: {returnDate}</Devolution2>
             </>
           ) : (
             <></>

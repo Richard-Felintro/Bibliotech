@@ -1,6 +1,6 @@
 import moment from "moment"
 import { StyledCalendarStrip } from "./Style"
-import { Calendar } from "react-native-calendars"
+import { Calendar, LocaleConfig } from "react-native-calendars"
 import { StyleSheet } from "react-native"
 
 export const Calendario = ({ setDataAtual }) => {
