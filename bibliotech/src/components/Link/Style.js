@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const LinkText = styled.Text`
-  font-size: 16px;
+  font-size: 12px;
   font-family: "MontserratAlternates_400Regular";
   color: #fff;
   text-decoration: underline;
@@ -17,4 +17,14 @@ export const LinkButton = styled.TouchableOpacity`
   border: none !important;
   font-size: 0;
   margin-top: 25px;
+`;
+export const LinkButtonLogin = styled.TouchableOpacity`
+  width: fit-content;
+  height: fit-content;
+  padding: 10px 5px;
+  background: transparent;
+  border: none !important;
+  font-size: 0;
+  /* margin-top: 25px; */
+  margin-left: 12px;
 `;

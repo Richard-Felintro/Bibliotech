@@ -12,7 +12,7 @@ import { LinkButton, LinkText } from "../../components/Link/Style";
 
 export const Calendar = ({
   Top = 40,
-  PadContainer = 10,
+  PadContainer = 50,
   MarginTButtom = 64,
   BottomSubtitle = 10,
 }) => {

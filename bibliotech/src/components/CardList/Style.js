@@ -67,3 +67,9 @@ export const Devolution = styled.Text`
   margin-top: 24px;
   color: white;
 `;
+export const Devolution2 = styled.Text`
+  font-size: 15px;
+  font-family: "MontserratAlternates_500Medium";
+  margin-top: 34px;
+  color: white;
+`;

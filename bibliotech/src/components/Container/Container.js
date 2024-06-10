@@ -50,6 +50,7 @@ export const ContainerGradient = styled(LinearGradient).attrs({
   start: { x: -0.05, y: 0.95 },
   end: { x: 0.9, y: -0.1 },
 })`
+  flex: 1;
   margin-top: 10%;
   margin-bottom: 10%;
   width: 100%;
@@ -87,7 +88,9 @@ export const ContainerProfile = styled.SafeAreaView`
   flex: 1;
   align-items: center;
   margin-top: 40px;
-  padding:${(props) => `${props.PadContainer}px`};
+  height: 100%;
+  width: 100%;
+  padding: ${(props) => `${props.PadContainer}px`};
 `;
 
 export const PhotoProfile = styled.View`

@@ -5,7 +5,7 @@ import {
 } from "../../components/Container/Style";
 import { Input } from "../../components/Input/Input";
 import { ButtonDark, ButtonText } from "../../components/Button/Style";
-import { LinkButton, LinkText } from "../../components/Link/Style";
+import { LinkButton, LinkButtonLogin, LinkText } from "../../components/Link/Style";
 import { LogoLogin } from "../../components/Logo/Style";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -49,6 +49,7 @@ export const LoginScreen = ({ navigation }) => {
   return (
     <Container>
       <ContainerGradient>
+        <LogoLogin source={require("../../assets/LOGO.png")} />
         <LogoLogin source={require("../../assets/LOGO.png")} />
         <ContainerInput>
           <Input placeholder={"EMAIL"} onChange={(e) => setEmail(e)} />

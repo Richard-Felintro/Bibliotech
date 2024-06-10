@@ -15,6 +15,7 @@ export const TitleSelecao = styled.Text`
     font-size: 25px;
     /* margin-bottom: 35px; */
     margin-top:${props=> `${props.Top}px`};
+    margin-bottom: 10px;
     color:#ffff;
 `
 
@@ -28,6 +29,8 @@ export const Subtitle = styled.Text`
     /* margin-top:20px; */
     color:#ffff;
     font-size:16px;
+    margin-bottom: 12px;
+    
     font-family:'MontserratAlternates_500Medium';
     margin-bottom: ${props=>`${props.BottomSubtitle}px`}
 `

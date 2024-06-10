@@ -6,7 +6,7 @@ import {
   ContainerInput,
   ContainerRow,
 } from "../../components/Container/Style";
-import { InputBox, InputText} from "../../components/Input/Style";
+import { InputBox, InputText } from "../../components/Input/Style";
 import { BookThumbnail } from "../../components/Image/Style";
 import { TextField } from "../../components/Text/TextField";
 import {
@@ -26,8 +26,9 @@ import { TextLeft, TextMedium } from "../../components/Text/Style";
 import { useState } from "react";
 import Foundation from "@expo/vector-icons/Foundation";
 import { Title } from "../../components/Title/Style";
+import { LinkButton, LinkText } from "../../components/Link/Style";
 
-export const BookInfoScreen = () => {
+export const BookInfoScreen = ({ navigation }) => {
   const [selectedBook, setSelectedBook] = useState({
     titulo: "Felipe Neto, A trajetória",
     genero: "Biografia",
@@ -115,9 +116,13 @@ export const BookInfoScreen = () => {
       <CommentButton>
         <ContainerRow>
           <Foundation name="pencil" size={20} color="#A1D9DF" />
-          <InputText placeholder={"Adicione sua resenha!"}/>
+          <InputText placeholder={"Adicione sua resenha!"} />
         </ContainerRow>
       </CommentButton>
+
+      <LinkButton onPress={() => navigation.navigate("BottonTab")}>
+        <LinkText>sair</LinkText>
+      </LinkButton>
     </ContainerGradientDark>
   );
 };
