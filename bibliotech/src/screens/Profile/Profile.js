@@ -46,7 +46,7 @@ export const Profile = ({ PadContainer = 10, navigation }) => {
           <Input placeholder="TURMA" />
         </ViewInput>
 
-        <ButtonLight onPress={() => navigation.navigate("Login")}>
+        <ButtonLight onPress={() => setShowLogout(true)}>
           <ButtonText>SAIR</ButtonText>
         </ButtonLight>
       </ContainerProfile>

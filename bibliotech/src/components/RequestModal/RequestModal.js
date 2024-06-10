@@ -15,7 +15,7 @@ import { LinkButton, LinkText } from "../Link/Style";
 
 export const RequestModal = ({ visible, showModal }) => {
   return (
-    <Modal visible={visible} transparent={true} animationType="fade">
+    <Modal visible={visible} transparent={true} animationType="slide">
       <RequestModalContainer>
         <ModalContent>
           <Title>SOLICITAR EMPRESTIMO</Title>

@@ -25,8 +25,8 @@ Notifications.setNotificationHandler({
     })
 })
 export const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState();
-  const [senha, setSenha] = useState();
+  const [email, setEmail] = useState("murilo.zapiello@gmail.com");
+  const [senha, setSenha] = useState("murilo123");
 
 
 
@@ -55,7 +55,7 @@ export const LoginScreen = ({ navigation }) => {
       .then(async (response) => {
         await AsyncStorage.setItem("token", JSON.stringify(response.data));
         console.log(response);
-        navigation.replace("Main");
+        navigation.replace("BottonTab");
       })
       .catch((error) => {
         console.log(error);
@@ -70,9 +70,9 @@ export const LoginScreen = ({ navigation }) => {
     }
   }
 
-  useEffect(() => {
-    LoadProfile();
-  }, []);
+  // useEffect(() => {
+  //   LoadProfile();
+  // }, []);
 
   async function HandleForgotPassword() {
     navigation.replace("ForgotPassword");
@@ -81,7 +81,7 @@ export const LoginScreen = ({ navigation }) => {
   return (
     <Container>
       <ContainerGradient>
-        <LogoLogin source={require("../../assets/LOGO.png")} />
+        {/* <LogoLogin source={require("../../assets/LOGO.png")} /> */}
         <LogoLogin source={require("../../assets/LOGO.png")} />
         <ContainerInput>
           <Input placeholder={"EMAIL"} onChange={(e) => setEmail(e)} />
