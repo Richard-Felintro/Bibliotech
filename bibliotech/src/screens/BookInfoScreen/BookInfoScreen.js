@@ -26,6 +26,7 @@ import { TextLeft, TextMedium } from "../../components/Text/Style";
 import { useEffect, useState } from "react";
 import Foundation from "@expo/vector-icons/Foundation";
 import { Title } from "../../components/Title/Style";
+import { LinkButton, LinkText } from "../../components/Link/Style";
 
 export const BookInfoScreen = () => {
   ///! DADOS MOCADOS
@@ -42,7 +43,7 @@ export const BookInfoScreen = () => {
     isbn: 1254759812357,
     rating: 5.0,
     favCount: "15M",
-  };
+  }
 
   //* Comentários mocados
   const [comments, setComments] = useState([
@@ -135,6 +136,10 @@ export const BookInfoScreen = () => {
           <InputText placeholder={"Adicione sua resenha!"} />
         </ContainerRow>
       </CommentButton>
+
+      <LinkButton onPress={() => navigation.navigate("BottonTab")}>
+        <LinkText>sair</LinkText>
+      </LinkButton>
     </ContainerGradientDark>
   );
 };

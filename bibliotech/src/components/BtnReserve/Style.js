@@ -7,6 +7,6 @@ export const BtnReserveView = styled.TouchableOpacity`
   background-color: #2c7da0;
   align-items: center;
   justify-content: center;
-  margin-bottom: 85px;
+  margin-bottom: 35px;
   margin-left: 270px;
 `;

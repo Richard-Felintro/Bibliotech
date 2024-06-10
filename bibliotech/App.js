@@ -3,30 +3,29 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Navigation } from "./src/screens/Navigation/Navigation";
 import {
   useFonts,
-MontserratAlternates_100Thin,
-MontserratAlternates_200ExtraLight,
-MontserratAlternates_100Thin_Italic,
-MontserratAlternates_200ExtraLight_Italic,
-MontserratAlternates_300Light,
-MontserratAlternates_300Light_Italic,
-MontserratAlternates_400Regular,
-MontserratAlternates_400Regular_Italic,
-MontserratAlternates_500Medium,
-MontserratAlternates_500Medium_Italic,
-MontserratAlternates_600SemiBold,
-MontserratAlternates_600SemiBold_Italic,
-MontserratAlternates_700Bold,
-MontserratAlternates_700Bold_Italic,
-MontserratAlternates_800ExtraBold,
-MontserratAlternates_800ExtraBold_Italic,
-MontserratAlternates_900Black,
-MontserratAlternates_900Black_Italic,
+  MontserratAlternates_100Thin,
+  MontserratAlternates_200ExtraLight,
+  MontserratAlternates_100Thin_Italic,
+  MontserratAlternates_200ExtraLight_Italic,
+  MontserratAlternates_300Light,
+  MontserratAlternates_300Light_Italic,
+  MontserratAlternates_400Regular,
+  MontserratAlternates_400Regular_Italic,
+  MontserratAlternates_500Medium,
+  MontserratAlternates_500Medium_Italic,
+  MontserratAlternates_600SemiBold,
+  MontserratAlternates_600SemiBold_Italic,
+  MontserratAlternates_700Bold,
+  MontserratAlternates_700Bold_Italic,
+  MontserratAlternates_800ExtraBold,
+  MontserratAlternates_800ExtraBold_Italic,
+  MontserratAlternates_900Black,
+  MontserratAlternates_900Black_Italic,
 } from "@expo-google-fonts/montserrat-alternates";
 import { StatusBar } from "expo-status-bar";
 
 //* Murilo Telas
 import { Main } from "./src/screens/Main/Main";
-
 
 //* Richard Telas
 import { LoginScreen } from "./src/screens/LoginScreen/LoginScreen";
@@ -38,7 +37,9 @@ import { BookInfoScreen } from "./src/screens/BookInfoScreen/BookInfoScreen";
 //* Matheus Telas
 import { Calendar } from "./src/screens/CalendarPage/CalendarPage";
 import { Profile } from "./src/screens/Profile/Profile";
-import { Calendario, CalendarioCompleto } from "./src/components/Callendar/Index";
+import { BottomNavigation } from "./src/components/BottonNavigation/BottonNavigation";
+import { FirstAccess } from "./src/screens/FirstAccessScreen/FirstAccess";
+import { FirstPassword } from "./src/screens/FirstPasswordScreen/FirstPassword";
 
 const Stack = createNativeStackNavigator();
 
@@ -52,14 +53,14 @@ export default function App() {
     MontserratAlternates_700Bold,
   });
 
-  if(!fontsLoaded && !fontError){
+  if (!fontsLoaded && !fontError) {
     return null;
   }
   return (
     <NavigationContainer>
       <StatusBar translucent backgroundColor="transparent" />
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Navegation"
           component={Navigation}
           options={{
@@ -67,16 +68,7 @@ export default function App() {
             headerTransparent: true,
             headerShown: false,
           }}
-        />
-        <Stack.Screen
-          name="Main"
-          component={Main}
-          options={{
-            title: "",
-            headerTransparent: true,
-            headerShown: false,
-          }}
-        />
+        /> */}
         <Stack.Screen
           name="Login"
           component={LoginScreen}
@@ -86,6 +78,16 @@ export default function App() {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="BottonTab"
+          component={BottomNavigation}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false,
+          }}
+        />
+
         <Stack.Screen
           name="ForgotPassword"
           component={ForgotPasswordScreen}
@@ -113,6 +115,17 @@ export default function App() {
             headerShown: false,
           }}
         />
+
+        <Stack.Screen
+          name="Main"
+          component={Main}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false,
+          }}
+        />
+
         <Stack.Screen
           name="BookInfo"
           component={BookInfoScreen}
@@ -134,6 +147,24 @@ export default function App() {
         <Stack.Screen
           name="Calendar"
           component={Calendar}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="FirstAccess"
+          component={FirstAccess}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="FirstPassword"
+          component={FirstPassword}
           options={{
             title: "",
             headerTransparent: true,

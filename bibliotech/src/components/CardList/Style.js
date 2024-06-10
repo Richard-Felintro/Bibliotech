@@ -33,6 +33,13 @@ export const BookImage = styled.Image`
   margin-left: 20px;
 `;
 
+export const BookImageModal = styled.Image`
+  width:146px;
+  height:252px;
+  border-radius:8px;
+  margin-bottom: ${props=> `${props.MbImage}px`}
+`
+
 export const BookInfosView = styled.View`
   margin-left: 15px;
 `;
@@ -65,5 +72,11 @@ export const Devolution = styled.Text`
   font-size: 15px;
   font-family: "MontserratAlternates_500Medium";
   margin-top: 24px;
+  color: white;
+`;
+export const Devolution2 = styled.Text`
+  font-size: 15px;
+  font-family: "MontserratAlternates_500Medium";
+  margin-top: 34px;
   color: white;
 `;

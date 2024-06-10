@@ -11,6 +11,7 @@
   "dependencies": {
     "@expo-google-fonts/montserrat-alternates": "^0.2.3",
     "@react-native-async-storage/async-storage": "^1.23.1",
+    "@expo/vector-icons": "^14.0.2",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
@@ -25,7 +26,8 @@
     "react-native": "0.74.1",
     "react-native-calendar-strip": "^1.4.2",
     "react-native-calendars": "^1.1305.0",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "expo-notifications": "~0.28.7"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
