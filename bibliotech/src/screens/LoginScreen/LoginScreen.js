@@ -85,7 +85,6 @@ export const LoginScreen = ({ navigation }) => {
     <Container>
       <ContainerGradient>
         <LogoLogin source={require("../../assets/LOGO.png")} />
-        <LogoLogin source={require("../../assets/LOGO.png")} />
         <ContainerInput>
           <Input placeholder={"EMAIL"} onChange={(e) => setEmail(e)} />
           <Input placeholder={"SENHA"} onChange={(e) => setSenha(e)} />

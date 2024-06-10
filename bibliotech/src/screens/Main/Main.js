@@ -44,6 +44,7 @@ const Livros = [
 
 export const Main = ({ navigation }) => {
   const [statusLista, setStatusLista] = useState("lendo");
+  const [showBookModal, setShowBookModal] = useState(false);
   const [showRequestModal, setShowRequestModal] = useState(false);
   useEffect(() => {
 

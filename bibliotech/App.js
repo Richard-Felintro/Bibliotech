@@ -60,7 +60,7 @@ export default function App() {
     <NavigationContainer>
       <StatusBar translucent backgroundColor="transparent" />
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Navegation"
           component={Navigation}
           options={{
@@ -68,7 +68,7 @@ export default function App() {
             headerTransparent: true,
             headerShown: false,
           }}
-        /> */}
+        />
         <Stack.Screen
           name="Login"
           component={LoginScreen}
