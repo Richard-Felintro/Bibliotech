@@ -19,13 +19,24 @@ export const RequestModal = ({ visible, showModal }) => {
       <RequestModalContainer>
         <ModalContent>
           <Title>SOLICITAR EMPRESTIMO</Title>
-          
+
           <ContainerInputNoMargin>
+            <RNPickerSelect
+              onValueChange={(value) => console.log(value)}
+              items={[
+                { label: "Football", value: "football" },
+                { label: "Baseball", value: "baseball" },
+                { label: "Hockey", value: "hockey" },
+              ]}
+            />
             <Input
               placeholder={"SELECTIONAR GÊNERO"}
               onChange={(e) => setEmail(e)}
             />
-            <Input placeholder={"SELECIONAR LIVRO"} onChange={(e) => setSenha(e)} />
+            <Input
+              placeholder={"SELECIONAR LIVRO"}
+              onChange={(e) => setSenha(e)}
+            />
           </ContainerInputNoMargin>
 
           <ButtonDark onPress={() => HandleLogin()}>

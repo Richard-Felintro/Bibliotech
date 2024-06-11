@@ -12,20 +12,17 @@ import {
 } from "@expo-google-fonts/montserrat-alternates";
 import { StatusBar } from "expo-status-bar";
 
-//* Murilo Telas
 import { Main } from "./src/screens/Main/Main";
-
-//* Richard Telas
 import { LoginScreen } from "./src/screens/LoginScreen/LoginScreen";
 import { ForgotPasswordScreen } from "./src/screens/ForgotPasswordScreen/ForgotPasswordScreen";
 import { ChangePasswordScreen } from "./src/screens/ChangePasswordScreen/ChangePasswordScreen";
 import { CodeVerificationScreen } from "./src/screens/CodeVerificationScreen/CodeVerificationScreen";
 import { BookInfoScreen } from "./src/screens/BookInfoScreen/BookInfoScreen";
-
-//* Matheus Telas
 import { Calendar } from "./src/screens/CalendarPage/CalendarPage";
 import { Profile } from "./src/screens/Profile/Profile";
 import { BottomNavigation } from "./src/components/BottonNavigation/BottonNavigation";
+
+//* Telas backlog
 import { FirstAccess } from "./src/screens/FirstAccessScreen/FirstAccess";
 import { FirstPassword } from "./src/screens/FirstPasswordScreen/FirstPassword";
 
