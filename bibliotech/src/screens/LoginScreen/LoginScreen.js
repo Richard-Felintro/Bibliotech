@@ -58,7 +58,7 @@ export const LoginScreen = ({ navigation }) => {
       .then(async (response) => {
         console.log(response);
         await AsyncStorage.setItem("token", JSON.stringify(response.data));
-        if (await userDecodeToken() != null) {
+        if ((await userDecodeToken()) != null) {
           navigation.replace("Main");
         }
       })
