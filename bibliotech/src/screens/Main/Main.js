@@ -55,7 +55,7 @@ export const Main = ({ navigation }) => {
 
   async function listBooks(){
     try {
-      const retornoGet = await api.get(`/Livro/ListarLivros`);
+      const retornoGet = await api.get(`/EmprestimoLivro`);
 
       setLivro(retornoGet.data);
     } catch (error) {
@@ -106,6 +106,7 @@ export const Main = ({ navigation }) => {
         .then(response => {
             setDadosUsuario(response.data)
             console.log(idU);
+
         }).catch(erro => {
             console.log(erro);
             // alert(erro)
