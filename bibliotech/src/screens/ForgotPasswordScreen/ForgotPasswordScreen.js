@@ -44,7 +44,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
 
         <ContainerText>
           <Title>Recuperação de Senha</Title>
-          <TextAlert>{alert}</TextAlert>
+          <TextAlert>Texto de exemplo</TextAlert>
           <TextContent>
             Digite o endereço de email para qual email enviaremos o link de
             recuperação de senha.

@@ -87,7 +87,7 @@ export const CodeVerificationScreen = ({ navigation, route }) => {
         />
         <ContainerText>
           <Title>Validação do código</Title>
-          <TextContent>{char1 + char2 + char3 + char4}</TextContent>
+          <TextContent>Digite o código enviado para</TextContent>
           <TextHighlight>{email}</TextHighlight>
         </ContainerText>
 

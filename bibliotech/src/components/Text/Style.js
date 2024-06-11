@@ -52,5 +52,5 @@ export const TextFieldBox = styled.View`
 
 export const TextAlert = styled(TextContent)`
   font-size: 16px;
-  color: #61a5c2;
+  color: #a1d9df;
 `;
