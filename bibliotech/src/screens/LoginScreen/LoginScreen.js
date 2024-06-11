@@ -30,6 +30,7 @@ export const LoginScreen = ({ navigation }) => {
   const [senha, setSenha] = useState();
 
 
+  
 
   const handleCallNotifications = async()=>{
     const {status} = await Notifications.getPermissionsAsync();

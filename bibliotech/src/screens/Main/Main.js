@@ -10,7 +10,8 @@ import { Text } from "react-native";
 import { BtnReserve } from "../../components/BtnReserve/BtnReserve";
 import { RequestModal } from "../../components/RequestModal/RequestModal";
 import { BookModal } from "../../components/BookModal/BookModal";
-
+import { ProfileInfo } from "../../utils/Auth";
+import api from "../../services/service";
 const Livros = [
   {
     id: 1,
@@ -65,12 +66,45 @@ export const Main = ({ navigation }) => {
     setShowBookModal(false)
   }
 
+  const [perfilUsuario, setPerfilUsuario] = useState("")
+  const [dadosUsuario, setDadosUsuario] = useState({});
+  const [idUsuario, setIdUsuario] = useState("");
+  useEffect(()=>{
+      ProfileInfo()
+      .then(token=>{
+        setPerfilUsuario(token.perfil)
+        setIdUsuario(token.id)
+        CarregarDadosUsuario(token.idUsuario, token.perfil)
+      })
+      .catch(erro=>{
+        console.log(`Não foi possível buscar as informações do usuário`);
+        console.log(`Erro: ${erro}`);
+      })
+  },[])
+
+  useEffect(() => {
+    if (idUsuario != "") {
+        CarregarDadosUsuario(idUsuario, perfilUsuario)
+    }
+}, [idUsuario])
+
+  const CarregarDadosUsuario = async (idUsuario, perfil) => {
+    const idU = await api.get(`/Usuario/BuscarPorId/${idUsuario}`)
+        .then(response => {
+            setDadosUsuario(response.data)
+            console.log(idU);
+        }).catch(erro => {
+            console.log(erro);
+            // alert(erro)
+        })
+}
+
   return (
     <ContainerMain>
       <Header
         source={require("../../assets/imageProfile.jpg")}
-        headerName={"Pedro Félix Gentilezza"}
-        headerID={"1096526001SP"}
+        headerName={dadosUsuario.nome}
+        headerID={dadosUsuario.email}
         onPress1={() => navigation.navigate("Profile")}
         onPress2={() => navigation.navigate("Login")}
       />

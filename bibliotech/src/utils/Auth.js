@@ -28,6 +28,16 @@ export const userDecodeToken = async () => {
   };
 };
 
+export const ProfileInfo = async () => {
+  const token = await userDecodeToken();
+
+  if(!token){
+      return null;    
+  }
+
+  return token
+}
+
 export const logout = async ({ navigation }) => {
   const token = await AsyncStorage.getItem("token");
   if (token) {
