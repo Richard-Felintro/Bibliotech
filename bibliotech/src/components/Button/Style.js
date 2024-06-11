@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ButtonText = styled.Text`
-  font-size: 15px;
+  font-size: 18px;
   font-family: "MontserratAlternates_700Bold";
   color: #FFF;
   text-align: center;

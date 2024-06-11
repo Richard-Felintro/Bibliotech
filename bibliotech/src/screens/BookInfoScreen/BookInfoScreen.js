@@ -23,13 +23,19 @@ import { ContainerIcon } from "../../components/Icon/Style";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Entypo from "@expo/vector-icons/Entypo";
 import { TextLeft, TextMedium } from "../../components/Text/Style";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Foundation from "@expo/vector-icons/Foundation";
 import { Title } from "../../components/Title/Style";
 import { LinkButton, LinkText } from "../../components/Link/Style";
 
-export const BookInfoScreen = ({ navigation }) => {
-  const [selectedBook, setSelectedBook] = useState({
+export const BookInfoScreen = () => {
+  ///! DADOS MOCADOS
+  const [bookId, setBookId] = useState({});
+  const [selectedBook, setSelectedBook] = useState({});
+
+  //* Livro mocado
+  const book = {
+    id: 1,
     titulo: "Felipe Neto, A trajetória",
     genero: "Biografia",
     autor: "Nelipe Feto",
@@ -37,8 +43,9 @@ export const BookInfoScreen = ({ navigation }) => {
     isbn: 1254759812357,
     rating: 5.0,
     favCount: "15M",
-  });
+  }
 
+  //* Comentários mocados
   const [comments, setComments] = useState([
     {
       id: 0,
@@ -69,6 +76,16 @@ export const BookInfoScreen = ({ navigation }) => {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
   ]);
+
+  //
+  useEffect(() => {
+    LoadBook();
+  }, []);
+
+  async function LoadBook() {
+    setSelectedBook(book);
+  }
+
   return (
     <ContainerGradientDark>
       <BookInfoContainer>
@@ -83,7 +100,7 @@ export const BookInfoScreen = ({ navigation }) => {
           <TextField label={"ISBN:"} content={selectedBook.isbn} />
           <IconField>
             <ContainerIcon>
-              <Entypo name="star" size={20} color="#468FAF" />
+              <Entypo name="star" size={24} color="#468FAF" />
               <TextLeft>{selectedBook.rating}</TextLeft>
             </ContainerIcon>
             <ContainerIcon>

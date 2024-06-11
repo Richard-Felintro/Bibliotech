@@ -18,20 +18,51 @@ import { LogoLogin } from "../../components/Logo/Style";
 import { Title } from "../../components/Title/Style";
 import { TextContent, TextHighlight } from "../../components/Text/Style";
 import { InputCode, InputCodeBox } from "../../components/Input/Style";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import api from "../../services/service";
 
-export const CodeVerificationScreen = ({ navigation }) => {
-  const [code, setCode] = useState(false);
+export const CodeVerificationScreen = ({ navigation, route }) => {
+  const { email } = route.params;
+  const [code, setCode] = useState("");
   const inputs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+  const [char1, setChar1] = useState();
+  const [char2, setChar2] = useState();
+  const [char3, setChar3] = useState();
+  const [char4, setChar4] = useState();
+
+  useEffect(() => {
+    console.log(email);
+  }, []);
 
   async function HandleContinue() {
-    navigation.navigate("ChangePassword");
-  }
-  async function HandleResend() {
-    console.log("Unfornately unimplemented :#");
+    const code = char1 + char2 + char3 + char4
+    console.log(code);
+    await api
+      .post(`/RecuperarSenha/PostValidacao?email=${email}&codigo=${code}`)
+      .then(async (response) => {
+        console.log(response);
+        navigation.replace("ChangePassword", { email: email });
+      })
+      .catch((error) => {
+        console.log(error);
+        setAlert("Usuário não encontrado.");
+      });
   }
 
-  async function HandleCancel() { 
+  async function HandleResend() {
+    await api
+      .post(`/RecuperarSenha?email=${email}`)
+      .then(async (response) => {
+        console.log(response);
+        navigation.replace("CodeVerification", { email: email });
+      })
+      .catch((error) => {
+        console.log("Erro no reenvio de código");
+        console.log(error);
+      });
+  }
+
+  async function HandleCancel() {
     navigation.navigate("ForgotPassword");
   }
 
@@ -56,8 +87,8 @@ export const CodeVerificationScreen = ({ navigation }) => {
         />
         <ContainerText>
           <Title>Validação do código</Title>
-          <TextContent>Digite o código enviado para:</TextContent>
-          <TextHighlight>endereco@email.com</TextHighlight>
+          <TextContent>{char1 + char2 + char3 + char4}</TextContent>
+          <TextHighlight>{email}</TextHighlight>
         </ContainerText>
 
         <ContainerInput>
@@ -69,6 +100,22 @@ export const CodeVerificationScreen = ({ navigation }) => {
                   keyboardType="numeric"
                   ref={inputs[index]}
                   onChangeText={(txt) => {
+                    switch (index) {
+                      case 0:
+                        setChar1(txt);
+                        break;
+                      case 1:
+                        setChar2(txt);
+                        break;
+                      case 2:
+                        setChar3(txt);
+                        break;
+                      case 3:
+                        setChar4(txt);
+                        break;
+                      default:
+                        console.log(rip);
+                    }
                     if (txt == "") {
                       focusPrevInput(index);
                     } else {

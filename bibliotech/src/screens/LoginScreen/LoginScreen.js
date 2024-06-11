@@ -5,47 +5,50 @@ import {
 } from "../../components/Container/Style";
 import { Input } from "../../components/Input/Input";
 import { ButtonDark, ButtonText } from "../../components/Button/Style";
-import { LinkButton, LinkButtonLogin, LinkText } from "../../components/Link/Style";
+import {
+  LinkButton,
+  LinkButtonLogin,
+  LinkText,
+} from "../../components/Link/Style";
 import { LogoLogin } from "../../components/Logo/Style";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../services/service";
+import { userDecodeToken } from "../../utils/Auth";
 
-import * as Notifications from "expo-notifications"
+import * as Notifications from "expo-notifications";
 
 Notifications.requestPermissionsAsync();
 
 Notifications.setNotificationHandler({
-    handleNotification: async()=>({
-      shouldShowAlert: true,
+  handleNotification: async () => ({
+    shouldShowAlert: true,
 
-      shouldPlaySound:false,
+    shouldPlaySound: false,
 
-      shouldSetBadge:true,
-    })
-})
+    shouldSetBadge: true,
+  }),
+});
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("murilo.zapiello@gmail.com");
   const [senha, setSenha] = useState("murilo123");
 
+  const handleCallNotifications = async () => {
+    const { status } = await Notifications.getPermissionsAsync();
 
-
-  const handleCallNotifications = async()=>{
-    const {status} = await Notifications.getPermissionsAsync();
-
-    if(status !== "granted"){
-      alert("Notificações não ativadas!!!")
+    if (status !== "granted") {
+      alert("Notificações não ativadas!!!");
       return;
     }
 
     await Notifications.scheduleNotificationAsync({
-      content:{
-        title:"Bem vindo ao Bibliotech!",
-        body:"Notificação recebida"
+      content: {
+        title: "Bem vindo ao Bibliotech!",
+        body: "Notificação recebida",
       },
-      trigger: null
-    })
-  }
+      trigger: null,
+    });
+  };
   async function HandleLogin() {
     await api
       .post("/Login", {
@@ -53,9 +56,12 @@ export const LoginScreen = ({ navigation }) => {
         senha: senha,
       })
       .then(async (response) => {
-        await AsyncStorage.setItem("token", JSON.stringify(response.data));
         console.log(response);
         navigation.replace("BottonTab");
+        await AsyncStorage.setItem("token", JSON.stringify(response.data));
+        if ((await userDecodeToken()) != null) {
+          navigation.replace("Main");
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -81,7 +87,6 @@ export const LoginScreen = ({ navigation }) => {
   return (
     <Container>
       <ContainerGradient>
-        {/* <LogoLogin source={require("../../assets/LOGO.png")} /> */}
         <LogoLogin source={require("../../assets/LOGO.png")} />
         <ContainerInput>
           <Input placeholder={"EMAIL"} onChange={(e) => setEmail(e)} />

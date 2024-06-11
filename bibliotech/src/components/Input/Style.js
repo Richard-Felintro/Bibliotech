@@ -10,7 +10,7 @@ export const InputBox = styled.View`
 `;
 
 export const InputText = styled.TextInput.attrs({
-  placeholderTextColor: "#ffff",
+  placeholderTextColor: "#c8c8c8",
 })`
   width: 100%;
   padding: 10px;
