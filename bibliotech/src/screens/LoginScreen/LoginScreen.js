@@ -57,10 +57,10 @@ export const LoginScreen = ({ navigation }) => {
       })
       .then(async (response) => {
         console.log(response);
-        navigation.replace("BottonTab");
+        // navigation.replace("BottonTab");
         await AsyncStorage.setItem("token", JSON.stringify(response.data));
         if ((await userDecodeToken()) != null) {
-          navigation.replace("Main");
+          navigation.replace("BottonTab");
         }
       })
       .catch((error) => {
