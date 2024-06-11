@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { LinkButton } from "../../Link/Style";
 
 export const CameraModalBtnView = styled.View`
   margin-top: 580px;
@@ -21,6 +22,8 @@ export const CameraModalBtn = styled.TouchableOpacity`
   align-items: center;
 `;
 
+export const ViewButtons = styled.View``;
+
 export const Seila = styled.View`
   background-color: #ffffff;
   width: 66px;
@@ -28,4 +31,6 @@ export const Seila = styled.View`
   border-radius: 33px;
 `;
 
-// export const LinkButtomCamera
+export const LinkButtomCamera = styled(LinkButton)`
+  margin-top: 10px;
+`;

@@ -30,8 +30,8 @@ Notifications.setNotificationHandler({
   }),
 });
 export const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState();
-  const [senha, setSenha] = useState();
+  const [email, setEmail] = useState("murilo.zapiello@gmail.com");
+  const [senha, setSenha] = useState("murilo123");
 
   const handleCallNotifications = async () => {
     const { status } = await Notifications.getPermissionsAsync();
@@ -57,9 +57,10 @@ export const LoginScreen = ({ navigation }) => {
       })
       .then(async (response) => {
         console.log(response);
+        // navigation.replace("BottonTab");
         await AsyncStorage.setItem("token", JSON.stringify(response.data));
         if ((await userDecodeToken()) != null) {
-          navigation.replace("Main");
+          navigation.replace("BottonTab");
         }
       })
       .catch((error) => {
@@ -75,9 +76,9 @@ export const LoginScreen = ({ navigation }) => {
     }
   }
 
-  useEffect(() => {
-    LoadProfile();
-  }, []);
+  // useEffect(() => {
+  //   LoadProfile();
+  // }, []);
 
   async function HandleForgotPassword() {
     navigation.replace("ForgotPassword");

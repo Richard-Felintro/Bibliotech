@@ -1,8 +1,9 @@
 import { CameraView } from "expo-camera";
 import { useEffect, useRef, useState } from "react";
-import { Modal, StyleSheet, View } from "react-native";
+import { Image, Modal, StyleSheet, TouchableOpacity, View } from "react-native";
 import { CameraButton } from "./CameraButton/CameraButton";
 import { CameraType } from "expo-camera/build/legacy/Camera.types";
+import { FontAwesome } from "@expo/vector-icons";
 
 export const CameraModal = ({
   visible,
@@ -34,7 +35,7 @@ export const CameraModal = ({
   function SendPhoto() {
     setPhoto(null);
     setOpenModal(false);
-    setShowModalCamera(false);
+    setShowModalCamera({ setShowModalCamera });
   }
 
   useEffect(() => {
@@ -57,11 +58,63 @@ export const CameraModal = ({
         style={styles.camera}
         ratio="16:9"
         type={cameraType}
-        zoom={0.9}
-
+        // zoom={0.9}
       >
-        <CameraButton onPress={() => CapturePhoto()} />
+        <CameraButton
+          onPress1={() => CapturePhoto()}
+          onPress2={setShowModalCamera}
+        />
       </CameraView>
+
+      <Modal animationType="slide" transparent={false} visible={openModal}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            margin: 20,
+            backgroundColor: "#01497c",
+            borderRadius: 20,
+          }}
+        >
+          <Image
+            style={{
+              margin: 10,
+              height: 500,
+              borderRadius: 15,
+            }}
+            source={{ uri: photo }}
+          />
+
+          <View style={{ margin: 15, flexDirection: "row" }}>
+            <TouchableOpacity
+              style={{
+                padding: 20,
+                borderRadius: 15,
+                backgroundColor: "transparent",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => SendPhoto()}
+            >
+              <FontAwesome name="save" size={35} color="#ffffff" />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{
+                padding: 20,
+                borderRadius: 15,
+                backgroundColor: "transparent",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => ClearPhoto()}
+            >
+              <FontAwesome name="trash" size={35} color="#ffffff" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </Modal>
   );
 };
