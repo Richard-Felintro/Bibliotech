@@ -47,9 +47,22 @@ export const Main = ({ navigation }) => {
   const [statusLista, setStatusLista] = useState("lendo");
   const [showBookModal, setShowBookModal] = useState(false);
   const [showRequestModal, setShowRequestModal] = useState(false);
+  const [livro , setLivro] = useState("");
   useEffect(() => {
-
+      listBooks()
   },[])
+
+
+  async function listBooks(){
+    try {
+      const retornoGet = await api.get(`/EmprestimoLivro`);
+
+      setLivro(retornoGet.data);
+    } catch (error) {
+      log(error)
+    }
+  }
+  
 
   function test1() {
     setStatusLista("lendo");
@@ -93,6 +106,7 @@ export const Main = ({ navigation }) => {
         .then(response => {
             setDadosUsuario(response.data)
             console.log(idU);
+
         }).catch(erro => {
             console.log(erro);
             // alert(erro)
@@ -123,7 +137,7 @@ export const Main = ({ navigation }) => {
       </BtnSelectedView>
 
       <FlatListBook
-        data={Livros}
+        data={livro}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) =>
           // <Text>Hello world</Text>

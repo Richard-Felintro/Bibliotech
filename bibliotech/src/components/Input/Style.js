@@ -51,7 +51,7 @@ export const ViewInput = styled.View`
 `;
 
 export const Input = styled.TextInput.attrs({ placeholderTextColor: "#ffff" })`
-  width: 70%;
+  width: 100%;
   padding: 10px;
   font-family: "MontserratAlternates_500Medium";
   font-size: 16px;
