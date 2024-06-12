@@ -43,7 +43,7 @@ export const CardList = ({
                   color="#61A5C2"
                 />
 
-                <BookReturnDate>{returnDate}</BookReturnDate>
+                <BookReturnDate>{ returnDate  }</BookReturnDate>
               </BookReturnDateView>
             </>
           ) : status == "lido" ? (
