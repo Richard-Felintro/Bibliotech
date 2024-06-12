@@ -12,57 +12,77 @@ import { RequestModal } from "../../components/RequestModal/RequestModal";
 import { BookModal } from "../../components/BookModal/BookModal";
 import { ProfileInfo } from "../../utils/Auth";
 import api from "../../services/service";
-const Livros = [
-  {
-    id: 1,
-    titulo: "Felipe Neto, A tragetória de um dos maiores youtubers do mundo",
-    autor: "Felipe Neto",
-    dataEntrega: "15/06/2024",
-    situacao: "lendo",
-  },
-  {
-    id: 2,
-    titulo: "É assim que acaba",
-    autor: "Sandra Coleen",
-    dataEntrega: "15/06/2024",
-    situacao: "lendo",
-  },
-  {
-    id: 3,
-    titulo: "Diario de um banana",
-    autor: "Jeff Kiney",
-    dataEntrega: "10/06/2024",
-    situacao: "lido",
-  },
-  {
-    id: 4,
-    titulo: "O diario perdido",
-    autor: "Alex Hirsch",
-    dataEntrega: "10/06/2024",
-    situacao: "lido",
-  },
-];
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// const Livros = [
+//   {
+//     id: 1,
+//     titulo: "Felipe Neto, A tragetória de um dos maiores youtubers do mundo",
+//     autor: "Felipe Neto",
+//     dataEntrega: "15/06/2024",
+//     situacao: "lendo",
+//   },
+//   {
+//     id: 2,
+//     titulo: "É assim que acaba",
+//     autor: "Sandra Coleen",
+//     dataEntrega: "15/06/2024",
+//     situacao: "lendo",
+//   },
+//   {
+//     id: 3,
+//     titulo: "Diario de um banana",
+//     autor: "Jeff Kiney",
+//     dataEntrega: "10/06/2024",
+//     situacao: "lido",
+//   },
+//   {
+//     id: 4,
+//     titulo: "O diario perdido",
+//     autor: "Alex Hirsch",
+//     dataEntrega: "10/06/2024",
+//     situacao: "lido",
+//   },
+// ];
+
 
 export const Main = ({ navigation }) => {
   const [statusLista, setStatusLista] = useState("lendo");
   const [showBookModal, setShowBookModal] = useState(false);
   const [showRequestModal, setShowRequestModal] = useState(false);
-  const [livro , setLivro] = useState("");
-  useEffect(() => {
-      listBooks()
-  },[])
+  const [livro, setLivro] = useState("");
 
-
-  async function listBooks(){
+  async function listBooks() {
     try {
       const retornoGet = await api.get(`/EmprestimoLivro`);
 
       setLivro(retornoGet.data);
     } catch (error) {
-      log(error)
+      log(error);
     }
   }
-  
+
+  async function Logout(navigation) {
+    try {
+      await AsyncStorage.removeItem("token");
+
+      //verifica se o token foi apagado com sucesso
+      const tokenAfterLogout = await AsyncStorage.getItem("token");
+      if (tokenAfterLogout === null) {
+        console.log("Token apagado 😶‍🌫️");
+      } else {
+        console.log("Falha ao apagar o token 🤕");
+      }
+
+      //Ir para tela de login
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Login" }],
+      });
+    } catch (error) {
+      console.error("Erro ao limpar token", error);
+    }
+  }
 
   function test1() {
     setStatusLista("lendo");
@@ -70,57 +90,62 @@ export const Main = ({ navigation }) => {
   function test2() {
     setStatusLista("lido");
   }
+
+  useEffect(() => {
+    listBooks();
+  }, []);
   useEffect(() => {
     // console.log(statusLista);
   }, [statusLista]);
 
   function GoToBookScreen() {
-    navigation.navigate("BookInfo")
-    setShowBookModal(false)
+    navigation.navigate("BookInfo");
+    setShowBookModal(false);
   }
 
-  const [perfilUsuario, setPerfilUsuario] = useState("")
+  const [perfilUsuario, setPerfilUsuario] = useState("");
   const [dadosUsuario, setDadosUsuario] = useState({});
   const [idUsuario, setIdUsuario] = useState("");
-  useEffect(()=>{
-      ProfileInfo()
-      .then(token=>{
-        setPerfilUsuario(token.perfil)
-        setIdUsuario(token.id)
-        CarregarDadosUsuario(token.idUsuario, token.perfil)
+  useEffect(() => {
+    ProfileInfo()
+      .then((token) => {
+        setPerfilUsuario(token.perfil);
+        setIdUsuario(token.id);
+        CarregarDadosUsuario(token.idUsuario, token.perfil);
       })
-      .catch(erro=>{
+      .catch((erro) => {
         console.log(`Não foi possível buscar as informações do usuário`);
         console.log(`Erro: ${erro}`);
-      })
-  },[])
+      });
+  }, []);
 
   useEffect(() => {
     if (idUsuario != "") {
-        CarregarDadosUsuario(idUsuario, perfilUsuario)
+      CarregarDadosUsuario(idUsuario, perfilUsuario);
     }
-}, [idUsuario])
+  }, [idUsuario]);
 
   const CarregarDadosUsuario = async (idUsuario, perfil) => {
-    const idU = await api.get(`/Usuario/BuscarPorId/${idUsuario}`)
-        .then(response => {
-            setDadosUsuario(response.data)
-            console.log(idU);
-
-        }).catch(erro => {
-            console.log(erro);
-            // alert(erro)
-        })
-}
+    const idU = await api
+      .get(`/Usuario/BuscarPorId/${idUsuario}`)
+      .then((response) => {
+        setDadosUsuario(response.data);
+        console.log(idU);
+      })
+      .catch((erro) => {
+        console.log(erro);
+        // alert(erro)
+      });
+  };
 
   return (
     <ContainerMain>
       <Header
-        source={require("../../assets/imageProfile.jpg")}
+        source={require("../../assets/murilo.png")}
         headerName={dadosUsuario.nome}
         headerID={dadosUsuario.email}
         onPress1={() => navigation.navigate("Profile")}
-        onPress2={() => navigation.navigate("Login")}
+        onPress2={() => Logout(navigation)}
       />
 
       <BtnSelectedView>
@@ -143,8 +168,8 @@ export const Main = ({ navigation }) => {
           // <Text>Hello world</Text>
           statusLista == item.situacao && (
             <CardList
-              bookName={`${item.titulo.substr(0, 23)}${
-                item.titulo.length >= 23 ? "..." : ""
+              bookName={`${item.livro.titulo.substr(0, 23)}${
+                item.livro.titulo.length >= 23 ? "..." : ""
               }`}
               bookAuthor={item.autor}
               returnDate={item.dataEntrega}
@@ -157,7 +182,7 @@ export const Main = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
       />
 
-      <BookModal 
+      <BookModal
         visible={showBookModal}
         setShowBookModal={setShowBookModal}
         navigation={navigation}
@@ -165,8 +190,11 @@ export const Main = ({ navigation }) => {
         onPressCancel={() => setShowBookModal(false)}
       />
 
-      <BtnReserve onPress={() => setShowRequestModal(true)}/>
-      <RequestModal visible={showRequestModal} showModal={setShowRequestModal}/>
+      <BtnReserve onPress={() => setShowRequestModal(true)} />
+      <RequestModal
+        visible={showRequestModal}
+        showModal={setShowRequestModal}
+      />
     </ContainerMain>
   );
 };

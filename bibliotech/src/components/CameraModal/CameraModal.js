@@ -15,7 +15,7 @@ export const CameraModal = ({
 
   const [openModal, setOpenModal] = useState(null);
   const [photo, setPhoto] = useState(null);
-  const [cameraType, setCameraType] = useState(CameraType.back);
+  const [cameraType, setCameraType] = useState(CameraType.front);
 
   async function CapturePhoto() {
     if (cameraRef) {
@@ -38,6 +38,13 @@ export const CameraModal = ({
     setShowModalCamera({ setShowModalCamera });
   }
 
+  function ChangeCameraType() {
+    setCameraType(
+      cameraType == CameraType.front ? CameraType.back : CameraType.front
+    );
+    console.log(cameraType);
+  }
+
   useEffect(() => {
     (async () => {
       const { status: cameraStatus } =
@@ -58,11 +65,12 @@ export const CameraModal = ({
         style={styles.camera}
         ratio="16:9"
         type={cameraType}
-        // zoom={0.9}
+        // zoom={0.05}
       >
         <CameraButton
           onPress1={() => CapturePhoto()}
           onPress2={setShowModalCamera}
+          onPress3={() => ChangeCameraType()}
         />
       </CameraView>
 
