@@ -1,14 +1,17 @@
-import { InputBox, InputText, Select } from "./Style";
+import { StyleSheet } from "react-native";
+import { InputBox, Select } from "./Style";
+import RNPickerSelect from "react-native-picker-select";
 
-export const Input = ({ onChange, items, placeholder }) => {
+export const Dropdown = ({ onChange, items, placeholder }) => {
   return (
     <InputBox>
-      <Select
+      <RNPickerSelect
+        style={{ ...dropdownStyles }}
+        onValueChange={onChange}
         placeholder={placeholder}
-        onValueChange={(e) => onChange(e)}
         items={items}
-        itemKey={items.idLivro}
       />
     </InputBox>
   );
 };
+

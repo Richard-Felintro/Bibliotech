@@ -47,22 +47,20 @@ export const Main = ({ navigation }) => {
   const [statusLista, setStatusLista] = useState("lendo");
   const [showBookModal, setShowBookModal] = useState(false);
   const [showRequestModal, setShowRequestModal] = useState(false);
-  const [livro , setLivro] = useState("");
+  const [livro, setLivro] = useState("");
   useEffect(() => {
-      listBooks()
-  },[])
+    listBooks();
+  }, []);
 
-
-  async function listBooks(){
+  async function listBooks() {
     try {
       const retornoGet = await api.get(`/EmprestimoLivro`);
 
       setLivro(retornoGet.data);
     } catch (error) {
-      log(error)
+      log(error);
     }
   }
-  
 
   function test1() {
     setStatusLista("lendo");
@@ -75,43 +73,44 @@ export const Main = ({ navigation }) => {
   }, [statusLista]);
 
   function GoToBookScreen() {
-    navigation.navigate("BookInfo")
-    setShowBookModal(false)
+    navigation.navigate("BookInfo");
+    setShowBookModal(false);
   }
 
-  const [perfilUsuario, setPerfilUsuario] = useState("")
+  const [perfilUsuario, setPerfilUsuario] = useState("");
   const [dadosUsuario, setDadosUsuario] = useState({});
   const [idUsuario, setIdUsuario] = useState("");
-  useEffect(()=>{
-      ProfileInfo()
-      .then(token=>{
-        setPerfilUsuario(token.perfil)
-        setIdUsuario(token.id)
-        CarregarDadosUsuario(token.idUsuario, token.perfil)
+  useEffect(() => {
+    ProfileInfo()
+      .then((token) => {
+        setPerfilUsuario(token.perfil);
+        setIdUsuario(token.id);
+        CarregarDadosUsuario(token.idUsuario, token.perfil);
       })
-      .catch(erro=>{
+      .catch((erro) => {
         console.log(`Não foi possível buscar as informações do usuário`);
         console.log(`Erro: ${erro}`);
-      })
-  },[])
+      });
+  }, []);
 
   useEffect(() => {
     if (idUsuario != "") {
-        CarregarDadosUsuario(idUsuario, perfilUsuario)
+      CarregarDadosUsuario(idUsuario, perfilUsuario);
     }
-}, [idUsuario])
+  }, [idUsuario]);
 
   const CarregarDadosUsuario = async (idUsuario, perfil) => {
-    const idU = await api.get(`/Usuario/BuscarPorId/${idUsuario}`)
-        .then(response => {
-            setDadosUsuario(response.data)
-            console.log(idU);
-
-        }).catch(erro => {
-            console.log(erro);
-            // alert(erro)
-        })
-}
+    const idU = await api
+      .get(`/Usuario/BuscarPorId/${idUsuario}`)
+      .then((response) => {
+        setDadosUsuario(response.data);
+        console.log(idU);
+      })
+      .catch((erro) => {
+        console.log(erro);
+        // alert(erro)
+      });
+  };
 
   return (
     <ContainerMain>
@@ -143,8 +142,8 @@ export const Main = ({ navigation }) => {
           // <Text>Hello world</Text>
           statusLista == item.situacao && (
             <CardList
-              bookName={`${item.titulo.substr(0, 23)}${
-                item.titulo.length >= 23 ? "..." : ""
+              bookName={`${item.livro.titulo.substr(0, 23)}${
+                item.livro.titulo.length >= 23 ? "..." : ""
               }`}
               bookAuthor={item.autor}
               returnDate={item.dataEntrega}
@@ -157,7 +156,7 @@ export const Main = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
       />
 
-      <BookModal 
+      <BookModal
         visible={showBookModal}
         setShowBookModal={setShowBookModal}
         navigation={navigation}
@@ -165,8 +164,12 @@ export const Main = ({ navigation }) => {
         onPressCancel={() => setShowBookModal(false)}
       />
 
-      <BtnReserve onPress={() => setShowRequestModal(true)}/>
-      <RequestModal visible={showRequestModal} showModal={setShowRequestModal}/>
+      <BtnReserve onPress={() => setShowRequestModal(true)} />
+      <RequestModal
+        visible={showRequestModal}
+        showModal={setShowRequestModal}
+        navigation={navigation}
+      />
     </ContainerMain>
   );
 };

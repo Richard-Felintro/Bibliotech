@@ -48,24 +48,23 @@ export const ChangePasswordScreen = ({ navigation, route }) => {
   };
 
   async function HandleContinue() {
+    console.log(email);
+    console.log(senha1);
+    console.log(senha2);
     if (senha1 === senha2 && senha1 != null) {
       setAlert("");
       await api
-        .post(`/Usuario/AlterarSenha?email=${email}`, {
-          senhaNova: {senha1}
+        .put(`/Usuario/AlterarSenha?email=${email}`, {
+          senhaNova: senha2,
         })
         .then(async (response) => {
           console.log(response);
           navigation.replace("Login");
-        })
-        .catch((error) => {
-          console.log(error);
-          setAlert("Algo deu errado, tente novamente mais tarde.");
+          handleCallNotifications();
         });
-
-      handleCallNotifications();
+    } else {
+      setAlert("Ambas as senhas devem ser idênticas.");
     }
-    setAlert("Ambas as senhas devem ser idênticas.  ");
   }
 
   async function HandleCancel() {
