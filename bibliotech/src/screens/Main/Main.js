@@ -12,6 +12,7 @@ import { RequestModal } from "../../components/RequestModal/RequestModal";
 import { BookModal } from "../../components/BookModal/BookModal";
 import { ProfileInfo } from "../../utils/Auth";
 import api from "../../services/service";
+import moment from "moment";
 const Livros = [
   {
     id: 1,
@@ -54,11 +55,14 @@ export const Main = ({ navigation }) => {
 
   async function listBooks() {
     try {
-      const retornoGet = await api.get(`/EmprestimoLivro`);
+      const retornoGet = await api.get(`/EmprestimoLivro/ListarMeus/${idUsuario}`);
 
       setLivro(retornoGet.data);
+
+      console.log("EMPRESTIMO");
+      console.log(retornoGet.data);
     } catch (error) {
-      log(error);
+      console.log(error)
     }
   }
 
@@ -90,8 +94,8 @@ export const Main = ({ navigation }) => {
       .catch((erro) => {
         console.log(`Não foi possível buscar as informações do usuário`);
         console.log(`Erro: ${erro}`);
-      });
-  }, []);
+      })
+  },[perfilUsuario])
 
   useEffect(() => {
     if (idUsuario != "") {
@@ -145,10 +149,10 @@ export const Main = ({ navigation }) => {
               bookName={`${item.livro.titulo.substr(0, 23)}${
                 item.livro.titulo.length >= 23 ? "..." : ""
               }`}
-              bookAuthor={item.autor}
-              returnDate={item.dataEntrega}
+              bookAuthor={item.livro.autor}
+              returnDate={moment(item.dataDevolucao).format("DD/MM/YYYY")} 
               status={item.situacao}
-              source={require("../../assets/bookImage.jpg")}
+              source={require("../../assets/bookImage.jpg")} 
               onPress={() => setShowBookModal(true)}
             />
           )
