@@ -4,10 +4,10 @@ import { LinkButton } from "../../Link/Style";
 export const CameraModalBtnView = styled.View`
   margin-top: 580px;
   flex: 1;
-  background-color: #013a63;
+  background-color: transparent;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 `;
 
 export const CameraModalBtn = styled.TouchableOpacity`
@@ -22,7 +22,7 @@ export const CameraModalBtn = styled.TouchableOpacity`
   align-items: center;
 `;
 
-export const ViewButtons = styled.View``;
+// export const ViewButtons = styled.View``;
 
 export const Seila = styled.View`
   background-color: #ffffff;

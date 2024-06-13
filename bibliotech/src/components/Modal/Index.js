@@ -86,7 +86,7 @@ export const ModalLogout = ({
 
             <ButtonOption
               MarginTButtom={MarginTButtom}
-              onPress={() => onPressCancel}
+              onPress={onPressCancel}
             >
               <ButtonTextSmall>NÃO</ButtonTextSmall>
             </ButtonOption>

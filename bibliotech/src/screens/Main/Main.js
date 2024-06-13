@@ -48,6 +48,9 @@ export const Main = ({ navigation }) => {
   const [statusLista, setStatusLista] = useState("lendo");
   const [showBookModal, setShowBookModal] = useState(false);
   const [showRequestModal, setShowRequestModal] = useState(false);
+  const [perfilUsuario, setPerfilUsuario] = useState("");
+  const [dadosUsuario, setDadosUsuario] = useState({});
+  const [idUsuario, setIdUsuario] = useState("");
   const [livro, setLivro] = useState("");
   useEffect(() => {
     listBooks();
@@ -55,14 +58,38 @@ export const Main = ({ navigation }) => {
 
   async function listBooks() {
     try {
-      const retornoGet = await api.get(`/EmprestimoLivro/ListarMeus/${idUsuario}`);
+      const retornoGet = await api.get(
+        `/EmprestimoLivro/ListarMeus/${idUsuario}`
+      );
 
       setLivro(retornoGet.data);
 
       console.log("EMPRESTIMO");
       console.log(retornoGet.data);
     } catch (error) {
-      console.log(error)
+      log(error);
+    }
+  }
+
+  async function Logout(navigation) {
+    try {
+      await AsyncStorage.removeItem("token");
+
+      //verifica se o token foi apagado com sucesso
+      const tokenAfterLogout = await AsyncStorage.getItem("token");
+      if (tokenAfterLogout === null) {
+        console.log("Token apagado 😶‍🌫️");
+      } else {
+        console.log("Falha ao apagar o token 🤕");
+      }
+
+      //Ir para tela de login
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Login" }],
+      });
+    } catch (error) {
+      console.error("Erro ao limpar token", error);
     }
   }
 
@@ -72,6 +99,10 @@ export const Main = ({ navigation }) => {
   function test2() {
     setStatusLista("lido");
   }
+
+  useEffect(() => {
+    listBooks();
+  }, []);
   useEffect(() => {
     // console.log(statusLista);
   }, [statusLista]);
@@ -79,11 +110,18 @@ export const Main = ({ navigation }) => {
   function GoToBookScreen() {
     navigation.navigate("BookInfo");
     setShowBookModal(false);
+    navigation.navigate("BookInfo");
+    setShowBookModal(false);
   }
 
-  const [perfilUsuario, setPerfilUsuario] = useState("");
-  const [dadosUsuario, setDadosUsuario] = useState({});
-  const [idUsuario, setIdUsuario] = useState("");
+  useEffect(() => {
+    ProfileInfo().then((token) => {
+      setPerfilUsuario(token.perfil);
+      setIdUsuario(token.id);
+      CarregarDadosUsuario(token.idUsuario, token.perfil);
+    });
+  }, []);
+
   useEffect(() => {
     ProfileInfo()
       .then((token) => {
@@ -94,8 +132,8 @@ export const Main = ({ navigation }) => {
       .catch((erro) => {
         console.log(`Não foi possível buscar as informações do usuário`);
         console.log(`Erro: ${erro}`);
-      })
-  },[perfilUsuario])
+      });
+  }, [perfilUsuario]);
 
   useEffect(() => {
     if (idUsuario != "") {
@@ -115,65 +153,66 @@ export const Main = ({ navigation }) => {
         // alert(erro)
       });
   };
-
-  return (
-    <ContainerMain>
-      <Header
-        source={require("../../assets/imageProfile.jpg")}
-        headerName={dadosUsuario.nome}
-        headerID={dadosUsuario.email}
-        onPress1={() => navigation.navigate("Profile")}
-        onPress2={() => navigation.navigate("Login")}
-      />
-
-      <BtnSelectedView>
-        <BtnListComponent
-          buttonText={"Lendo"}
-          clickButton={statusLista === "lendo"}
-          onPress={() => test1()}
-        />
-        <BtnListComponent
-          buttonText={"Lido"}
-          clickButton={statusLista === "lido"}
-          onPress={() => test2()}
-        />
-      </BtnSelectedView>
-
-      <FlatListBook
-        data={livro}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) =>
-          // <Text>Hello world</Text>
-          statusLista == item.situacao && (
-            <CardList
-              bookName={`${item.livro.titulo.substr(0, 23)}${
-                item.livro.titulo.length >= 23 ? "..." : ""
-              }`}
-              bookAuthor={item.livro.autor}
-              returnDate={moment(item.dataDevolucao).format("DD/MM/YYYY")} 
-              status={item.situacao}
-              source={require("../../assets/bookImage.jpg")} 
-              onPress={() => setShowBookModal(true)}
-            />
-          )
-        }
-        showsVerticalScrollIndicator={false}
-      />
-
-      <BookModal
-        visible={showBookModal}
-        setShowBookModal={setShowBookModal}
-        navigation={navigation}
-        onPress={() => GoToBookScreen()}
-        onPressCancel={() => setShowBookModal(false)}
-      />
-
-      <BtnReserve onPress={() => setShowRequestModal(true)} />
-      <RequestModal
-        visible={showRequestModal}
-        showModal={setShowRequestModal}
-        navigation={navigation}
-      />
-    </ContainerMain>
-  );
 };
+
+return (
+  <ContainerMain>
+    <Header
+      source={require("../../assets/murilo.png")}
+      headerName={dadosUsuario.nome}
+      headerID={dadosUsuario.email}
+      onPress1={() => navigation.navigate("Profile")}
+      onPress2={() => Logout(navigation)}
+    />
+
+    <BtnSelectedView>
+      <BtnListComponent
+        buttonText={"Lendo"}
+        clickButton={statusLista === "lendo"}
+        onPress={() => test1()}
+      />
+      <BtnListComponent
+        buttonText={"Lido"}
+        clickButton={statusLista === "lido"}
+        onPress={() => test2()}
+      />
+    </BtnSelectedView>
+
+    <FlatListBook>
+      data={livro}
+      keyExtractor={(item) => item.id}
+      renderItem=
+      {({ item }) =>
+        // <Text>Hello world</Text>
+        statusLista == item.situacao && (
+          <CardList
+            bookName={`${item.livro.titulo.substr(0, 23)}${
+              item.livro.titulo.length >= 23 ? "..." : ""
+            }`}
+            bookAuthor={item.livro.autor}
+            returnDate={moment(item.dataDevolucao).format("DD/MM/YYYY")}
+            status={item.situacao}
+            source={require("../../assets/bookImage.jpg")}
+            onPress={() => setShowBookModal(true)}
+          />
+        )
+      }
+      showsVerticalScrollIndicator={false}
+    </FlatListBook>
+
+    <BookModal
+      visible={showBookModal}
+      setShowBookModal={setShowBookModal}
+      navigation={navigation}
+      onPress={() => GoToBookScreen()}
+      onPressCancel={() => setShowBookModal(false)}
+    />
+
+    <BtnReserve onPress={() => setShowRequestModal(true)} />
+    <RequestModal
+      visible={showRequestModal}
+      showModal={setShowRequestModal}
+      navigation={navigation}
+    />
+  </ContainerMain>
+);
