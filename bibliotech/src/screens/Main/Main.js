@@ -153,66 +153,66 @@ export const Main = ({ navigation }) => {
         // alert(erro)
       });
   };
+
+  return (
+    <ContainerMain>
+      <Header
+        source={require("../../assets/murilo.png")}
+        headerName={dadosUsuario.nome}
+        headerID={dadosUsuario.email}
+        onPress1={() => navigation.navigate("Profile")}
+        onPress2={() => Logout(navigation)}
+      />
+
+      <BtnSelectedView>
+        <BtnListComponent
+          buttonText={"Lendo"}
+          clickButton={statusLista === "lendo"}
+          onPress={() => test1()}
+        />
+        <BtnListComponent
+          buttonText={"Lido"}
+          clickButton={statusLista === "lido"}
+          onPress={() => test2()}
+        />
+      </BtnSelectedView>
+
+      <FlatListBook>
+        data={livro}
+        keyExtractor={(item) => item.id}
+        renderItem=
+        {({ item }) =>
+          // <Text>Hello world</Text>
+          statusLista == item.situacao && (
+            <CardList
+              bookName={`${item.livro.titulo.substr(0, 23)}${
+                item.livro.titulo.length >= 23 ? "..." : ""
+              }`}
+              bookAuthor={item.livro.autor}
+              returnDate={moment(item.dataDevolucao).format("DD/MM/YYYY")}
+              status={item.situacao}
+              source={require("../../assets/bookImage.jpg")}
+              onPress={() => setShowBookModal(true)}
+            />
+          )
+        }
+        showsVerticalScrollIndicator={false}
+      </FlatListBook>
+
+      <BookModal
+        visible={showBookModal}
+        setShowBookModal={setShowBookModal}
+        navigation={navigation}
+        onPress={() => GoToBookScreen()}
+        onPressCancel={() => setShowBookModal(false)}
+      />
+
+      <BtnReserve onPress={() => setShowRequestModal(true)} />
+      <RequestModal
+        visible={showRequestModal}
+        showModal={setShowRequestModal}
+        navigation={navigation}
+      />
+    </ContainerMain>
+  );
 };
-
-return (
-  <ContainerMain>
-    <Header
-      source={require("../../assets/murilo.png")}
-      headerName={dadosUsuario.nome}
-      headerID={dadosUsuario.email}
-      onPress1={() => navigation.navigate("Profile")}
-      onPress2={() => Logout(navigation)}
-    />
-
-    <BtnSelectedView>
-      <BtnListComponent
-        buttonText={"Lendo"}
-        clickButton={statusLista === "lendo"}
-        onPress={() => test1()}
-      />
-      <BtnListComponent
-        buttonText={"Lido"}
-        clickButton={statusLista === "lido"}
-        onPress={() => test2()}
-      />
-    </BtnSelectedView>
-
-    <FlatListBook>
-      data={livro}
-      keyExtractor={(item) => item.id}
-      renderItem=
-      {({ item }) =>
-        // <Text>Hello world</Text>
-        statusLista == item.situacao && (
-          <CardList
-            bookName={`${item.livro.titulo.substr(0, 23)}${
-              item.livro.titulo.length >= 23 ? "..." : ""
-            }`}
-            bookAuthor={item.livro.autor}
-            returnDate={moment(item.dataDevolucao).format("DD/MM/YYYY")}
-            status={item.situacao}
-            source={require("../../assets/bookImage.jpg")}
-            onPress={() => setShowBookModal(true)}
-          />
-        )
-      }
-      showsVerticalScrollIndicator={false}
-    </FlatListBook>
-
-    <BookModal
-      visible={showBookModal}
-      setShowBookModal={setShowBookModal}
-      navigation={navigation}
-      onPress={() => GoToBookScreen()}
-      onPressCancel={() => setShowBookModal(false)}
-    />
-
-    <BtnReserve onPress={() => setShowRequestModal(true)} />
-    <RequestModal
-      visible={showRequestModal}
-      showModal={setShowRequestModal}
-      navigation={navigation}
-    />
-  </ContainerMain>
-);
