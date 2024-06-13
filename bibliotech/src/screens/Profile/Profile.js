@@ -12,14 +12,18 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { Input, ViewInput } from "../../components/Input/Style";
 import { ButtonLight, ButtonText } from "../../components/Button/Style";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CameraModal } from "../../components/CameraModal/CameraModal";
 import { ModalLogout } from "../../components/Modal/Index";
-import { ProfileInfo } from "../../utils/Auth";
+import { ProfileInfo, userDecodeToken } from "../../utils/Auth";
 import api from "../../services/service";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const Profile = ({ PadContainer = 10, navigation }) => {
+import * as MediaLibrary from "expo-media-library";
+import * as ImagePicker from "expo-image-picker";
+import { useFocusEffect } from "@react-navigation/native";
+
+export const Profile = ({ PadContainer = 10, navigation, route }) => {
   const [showLogout, setShowLogout] = useState(false);
   const [showCamera, setShowModalCamera] = useState(false);
   const [perfilUsuario, setPerfilUsuario] = useState("");
@@ -79,6 +83,57 @@ export const Profile = ({ PadContainer = 10, navigation }) => {
         // alert(erro)
       });
   };
+
+  async function requestGaleria() {
+    await MediaLibrary.requestPermissionsAsync();
+
+    await ImagePicker.requestMediaLibraryPermissionsAsync();
+  }
+
+  useEffect(() => {
+    requestGaleria();
+  }, []);
+
+  async function AlterarFotoPerfil() {
+    const token = await userDecodeToken();
+    const formData = new FormData();
+    formData.append("Arquivo", {
+      uri: route.params.uriPhoto,
+      name: `image.${route.params.uriPhoto.split(".").pop()}`,
+      type: `image/${route.params.uriPhoto.split(".").pop()}`,
+    });
+
+    await api
+      .put(`/Usuario/AlterarFotoPerfil?id=${token.id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(async () => {
+        await setPerfilUsuario({
+          ...perfilUsuario,
+          idNavigation: {
+            ...perfilUsuario.idNavigation,
+            foto: route.params.uriPhoto,
+          },
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  useEffect(() => {
+    if (route.params != null && idUsuario != "") {
+      AlterarFotoPerfil();
+    }
+  }, [idUsuario]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      CarregarDadosUsuario();
+    }, [])
+  );
   return (
     <ScrollView
       style={{
@@ -89,7 +144,7 @@ export const Profile = ({ PadContainer = 10, navigation }) => {
         {/* <PhotoContent> */}
         <PhotoProfile>
           <ContainerImage>
-            <ImageComponent source={require("../../../assets/Profile2.jpg")} />
+            <ImageComponent source={{ uri: dadosUsuario.foto }} />
           </ContainerImage>
           <ViewPhotoIcon onPress={() => setShowModalCamera(true)}>
             <MaterialIcons name="add-a-photo" size={24} color="#ffff" />
