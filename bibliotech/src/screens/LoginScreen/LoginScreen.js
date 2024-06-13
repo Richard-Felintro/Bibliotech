@@ -17,6 +17,7 @@ import api from "../../services/service";
 import { userDecodeToken } from "../../utils/Auth";
 
 import * as Notifications from "expo-notifications";
+import { Image } from "react-native";
 
 Notifications.requestPermissionsAsync();
 
@@ -30,8 +31,8 @@ Notifications.setNotificationHandler({
   }),
 });
 export const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [email, setEmail] = useState("richard@");
+  const [senha, setSenha] = useState("richard");
 
   const handleCallNotifications = async () => {
     const { status } = await Notifications.getPermissionsAsync();
@@ -49,6 +50,7 @@ export const LoginScreen = ({ navigation }) => {
       trigger: null,
     });
   };
+
   async function HandleLogin() {
     await api
       .post("/Login", {
@@ -72,13 +74,12 @@ export const LoginScreen = ({ navigation }) => {
   async function LoadProfile() {
     if (email !== null) {
       HandleLogin();
-      handleCallNotifications();
     }
   }
 
-  // useEffect(() => {
-  //   LoadProfile();
-  // }, []);
+  useEffect(() => {
+    LoadProfile();
+  }, []);
 
   async function HandleForgotPassword() {
     navigation.replace("ForgotPassword");
@@ -87,7 +88,10 @@ export const LoginScreen = ({ navigation }) => {
   return (
     <Container>
       <ContainerGradient>
-        <LogoLogin source={require("../../assets/LOGO.png")} />
+        <Image
+          style={[{ height: 200 }, { width: 160 }, { marginBottom: 64 }]}
+          source={require("../../assets/LOGO.png")}
+        />
         <ContainerInput>
           <Input placeholder={"EMAIL"} onChange={(e) => setEmail(e)} />
           <Input placeholder={"SENHA"} onChange={(e) => setSenha(e)} />

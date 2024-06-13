@@ -18,25 +18,68 @@ import api from "../../services/service";
 import { Dropdown } from "../Select/Select";
 import { InputBox } from "../Input/Style";
 
-export const RequestModal = ({ visible, showModal }) => {
+export const RequestModal = ({ visible, showModal, navigation }) => {
   const [genres, setGenres] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState({});
+  const [books, setBooks] = useState([]);
+  const [selectedBook, setSelectedBook] = useState({});
+  const [disabled, setDisabled] = useState(true)
 
   useEffect(() => {
-    loadGenres();
+    LoadGenres();
   }, []);
 
-  async function loadGenres() {
+  
+  useEffect(() => {
+    LoadBooks();
+  }, [selectedGenre]);
+
+  async function LoadBooks() {
     await api
-      .get("/Genero/ListarGeneros")
+      .get(`/Livro/ListarLivrosPorGenero?idGenero=${selectedGenre}`)
       .then(async (response) => {
-        setGenres(response.data);
-        console.log(genres);
+        setBooks(
+          response.data.map((x) => ({
+            label: x.titulo,
+            value: x.idLivro,
+          }))
+        );
+        console.log("hmmm");
+        console.log(response.data);
+        console.log(books);
       })
       .catch((error) => {
         console.log(error);
       });
   }
+
+  async function LoadGenres() {
+    await api
+      .get("/Genero/ListarGeneros")
+      .then(async (response) => {
+        setGenres(
+          response.data.map((x) => ({
+            label: x.tituloGenero.toUpperCase(),
+            value: x.idGenero,
+          }))
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  async function HandleContinue(){
+    navigation.replace('Calendar', {
+      BookId: selectedBook,
+    });
+  }
+
+  async function ChooseGenre(value){
+    setSelectedGenre(value)
+    setDisabled(false)
+  }
+
   return (
     <Modal visible={visible} transparent={true} animationType="slide">
       <RequestModalContainer>
@@ -48,20 +91,23 @@ export const RequestModal = ({ visible, showModal }) => {
               <RNPickerSelect
                 style={dropdownStyles}
                 items={genres}
-                value={genres.tituloGenero}
-                key={genres.idGenero}
-                onValueChange={(value) => setSelectedGenre(value)}
+                onValueChange={(value) => ChooseGenre(value)}
                 placeholder={{ label: "SELECIONE UM GÊNERO", value: null }}
               />
             </InputBox>
-            <Input
-              placeholder={"SELECIONAR LIVRO"}
-              onChange={(e) => setSenha(e)}
-            />
+            <InputBox>
+              <RNPickerSelect
+                style={dropdownStyles}
+                items={books}
+                onValueChange={(value) => setSelectedBook(value)}
+                placeholder={disabled ? { label: "", value: null } : { label: "SELECIONE UM LIVRO", value: null }}
+                disabled={disabled}
+              />
+            </InputBox>
           </ContainerInputNoMargin>
 
-          <ButtonDark onPress={() => HandleLogin()}>
-            <ButtonText>LOGIN</ButtonText>
+          <ButtonDark onPress={() => HandleContinue()}>
+            <ButtonText>CONFIRMAR</ButtonText>
           </ButtonDark>
 
           <LinkButtonNoMargin onPress={() => showModal(false)}>
@@ -74,11 +120,13 @@ export const RequestModal = ({ visible, showModal }) => {
 };
 const dropdownStyles = StyleSheet.create({
   inputAndroid: {
-    placeholderTextColor: "#c8c8c8",
+    placeholder:{
+      color: "#C8C8C8"
+    },
+    color: "white",
     padding: 10,
     fontFamily: "MontserratAlternates_500Medium",
     fontSize: 16,
-    color: "#ffffff",
     textAlign: "center",
     backgroundColor: "transparent",
   },
