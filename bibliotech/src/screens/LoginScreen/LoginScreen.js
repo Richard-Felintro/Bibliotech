@@ -31,8 +31,8 @@ Notifications.setNotificationHandler({
   }),
 });
 export const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("richard@");
-  const [senha, setSenha] = useState("richard");
+  const [email, setEmail] = useState("matheus@");
+  const [senha, setSenha] = useState("1234");
 
   const handleCallNotifications = async () => {
     const { status } = await Notifications.getPermissionsAsync();
