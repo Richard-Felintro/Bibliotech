@@ -52,9 +52,12 @@ export const Main = ({ navigation }) => {
   const [perfilUsuario, setPerfilUsuario] = useState("");
   const [dadosUsuario, setDadosUsuario] = useState({});
   const [idUsuario, setIdUsuario] = useState("");
-  const [livro, setLivro] = useState({});
+  const [livro, setLivro] = useState([]);
   const [reload , setReload] = useState(false);
-  const [livroList, setLivroList] = useState([])
+  const [livroList, setLivroList] = useState([]);
+
+ 
+  const [idEmprestimo, setIdEmprestimo] = useState({})
 
      // States para verficar os dias
      const [diaAtual, setDiaAtual] = useState()
@@ -65,15 +68,17 @@ export const Main = ({ navigation }) => {
         `/EmprestimoLivro/ListarMeus/${idUsuario}`
       ).then(async (response) => {
         setLivro(response.data);
+        const formattedDate = new Date(item.dataDevolucao).toLocaleDateString('pt-BR')
+        setIdEmprestimo(response.data[0].idEmprestimoLivro)
       });
 
     } catch (error) {
-      log(error);
+      console.log(error);
     }
   }
 
 
-  function AtualizarStatus() {
+  function AtualizarStatus(idEmprestimo) {
     const currentDate = new Date();
     setDiaAtual(currentDate.getTime())
 
@@ -83,14 +88,13 @@ export const Main = ({ navigation }) => {
         const dataComoInteiro = dataComoObjeto.getTime();
 
         setDiaDevolucao(dataComoInteiro);
-        if (dataComoInteiro >= currentDate.getTime()) {
-            await api.put(`/EmprestimoLivro/AtualizarStatus`,{
-                id: item.idEmprestimoLivro,
-                situacao: "lido"
+        if (dataComoInteiro <= currentDate.getTime()) {
+            await api.put(`/EmprestimoLivro/AtualizarStatus?id=${item.idEmprestimoLivro}`, {
+              situacao: "lido"
+            }).then(() => {
+              listBooks(idUsuario)
             })
             setReload(true)
-            console.log("IDEEEEEEEEEE");
-            console.log(item.idEmprestimoLivro);
         }
 
         //console.log(item.id);
@@ -145,7 +149,8 @@ export const Main = ({ navigation }) => {
 
 
   useEffect(() => {
-    AtualizarStatus();
+    console.log("EMPRESTIMOOOOOO!!!!");
+    console.log(idEmprestimo)
     ProfileInfo()
       .then(async (token) => {
         setPerfilUsuario(token.perfil);
@@ -153,12 +158,14 @@ export const Main = ({ navigation }) => {
         setIdUsuario(token.id);
 
         await CarregarDadosUsuario(token.id);
+
+        await AtualizarStatus();
       })
       .catch((erro) => {
         console.log(`Não foi possível buscar as informações do usuário`);
         console.log(`Erro: ${erro}`);
       });
-  }, [])
+  }, [idEmprestimo])
 
   return (
     <ContainerMain>
@@ -191,12 +198,13 @@ export const Main = ({ navigation }) => {
           // <Text style={{ color : "#fbfbfb"}}>Hello world</Text>
           statusLista == item.situacao && (
             <CardList
+           
               bookName={`${item.livro.titulo.substr(0, 23)}${item.livro.titulo.length >= 23 ? "..." : ""
                 }`}
               bookAuthor={item.livro.autor}
-              returnDate={item.dataDevolucao}
+              returnDate= {moment(item.dataDevolucao).format("DD/MM/YYYY")}
               status={item.situacao}
-              source={require("../../assets/bookImage.jpg")}
+              source={{uri:item.capa}}
               onPress={() => setShowBookModal(true)}
             />
           )
