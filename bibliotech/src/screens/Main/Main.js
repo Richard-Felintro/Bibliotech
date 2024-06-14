@@ -51,26 +51,50 @@ export const Main = ({ navigation }) => {
   const [perfilUsuario, setPerfilUsuario] = useState("");
   const [dadosUsuario, setDadosUsuario] = useState({});
   const [idUsuario, setIdUsuario] = useState("");
-  const [livro, setLivro] = useState("");
-  useEffect(() => {
-    listBooks();
-  }, []);
+  const [livro, setLivro] = useState({});
+  const [reload , setReload] = useState(false);
+  const [livroList, setLivroList] = useState([])
 
-  async function listBooks() {
+     // States para verficar os dias
+     const [diaAtual, setDiaAtual] = useState()
+     const [diaDevolucao, setDiaDevolucao] = useState()
+  async function listBooks(idUsuario) {
     try {
-      const retornoGet = await api.get(
+      await api.get(
         `/EmprestimoLivro/ListarMeus/${idUsuario}`
-      );
+      ).then(async (response) => {
+        setLivro(response.data);
+      });
 
-      setLivro(retornoGet.data);
-
-      console.log("EMPRESTIMO");
-      console.log(retornoGet.data);
     } catch (error) {
       log(error);
     }
   }
 
+
+  function AtualizarStatus() {
+    const currentDate = new Date();
+    setDiaAtual(currentDate.getTime())
+
+    livro.forEach(async (item) => {
+
+        const dataComoObjeto = new Date(item.dataDevolucao);
+        const dataComoInteiro = dataComoObjeto.getTime();
+
+        setDiaDevolucao(dataComoInteiro);
+        if (dataComoInteiro >= currentDate.getTime()) {
+            await api.put(`/EmprestimoLivro/AtualizarStatus`,{
+                id: item.idEmprestimoLivro,
+                situacao: "lido"
+            })
+            setReload(true)
+            console.log("IDEEEEEEEEEE");
+            console.log(item.idEmprestimoLivro);
+        }
+
+        //console.log(item.id);
+    });
+  }
   async function Logout(navigation) {
     try {
       await AsyncStorage.removeItem("token");
@@ -96,63 +120,44 @@ export const Main = ({ navigation }) => {
   function test1() {
     setStatusLista("lendo");
   }
+
   function test2() {
     setStatusLista("lido");
   }
 
-  useEffect(() => {
-    listBooks();
-  }, []);
-  useEffect(() => {
-    // console.log(statusLista);
-  }, [statusLista]);
-
   function GoToBookScreen() {
-    navigation.navigate("BookInfo");
-    setShowBookModal(false);
     navigation.navigate("BookInfo");
     setShowBookModal(false);
   }
 
-  useEffect(() => {
-    ProfileInfo().then((token) => {
-      setPerfilUsuario(token.perfil);
-      setIdUsuario(token.id);
-      CarregarDadosUsuario(token.idUsuario, token.perfil);
+  const CarregarDadosUsuario = async (idUsuario) => {
+    await api.get(`/Usuario/BuscarPorId/${idUsuario}`)
+    .then( async (response) => {
+      setDadosUsuario(response.data);
+
+      await listBooks(idUsuario);
+    })
+    .catch((erro) => {
+      console.log(erro);
     });
-  }, []);
+  };
+
 
   useEffect(() => {
+    AtualizarStatus();
     ProfileInfo()
-      .then((token) => {
+      .then(async (token) => {
         setPerfilUsuario(token.perfil);
+
         setIdUsuario(token.id);
-        CarregarDadosUsuario(token.idUsuario, token.perfil);
+
+        await CarregarDadosUsuario(token.id);
       })
       .catch((erro) => {
         console.log(`Não foi possível buscar as informações do usuário`);
         console.log(`Erro: ${erro}`);
       });
-  }, [perfilUsuario]);
-
-  useEffect(() => {
-    if (idUsuario != "") {
-      CarregarDadosUsuario(idUsuario, perfilUsuario);
-    }
-  }, [idUsuario]);
-
-  const CarregarDadosUsuario = async (idUsuario, perfil) => {
-    const idU = await api
-      .get(`/Usuario/BuscarPorId/${idUsuario}`)
-      .then((response) => {
-        setDadosUsuario(response.data);
-        console.log(idU);
-      })
-      .catch((erro) => {
-        console.log(erro);
-        // alert(erro)
-      });
-  };
+  }, [])
 
   return (
     <ContainerMain>
@@ -177,19 +182,18 @@ export const Main = ({ navigation }) => {
         />
       </BtnSelectedView>
 
-      <FlatListBook>
+      <FlatListBook
         data={livro}
         keyExtractor={(item) => item.id}
         renderItem=
         {({ item }) =>
-          // <Text>Hello world</Text>
+          // <Text style={{ color : "#fbfbfb"}}>Hello world</Text>
           statusLista == item.situacao && (
             <CardList
-              bookName={`${item.livro.titulo.substr(0, 23)}${
-                item.livro.titulo.length >= 23 ? "..." : ""
-              }`}
+              bookName={`${item.livro.titulo.substr(0, 23)}${item.livro.titulo.length >= 23 ? "..." : ""
+                }`}
               bookAuthor={item.livro.autor}
-              returnDate={moment(item.dataDevolucao).format("DD/MM/YYYY")}
+              returnDate={item.dataDevolucao}
               status={item.situacao}
               source={require("../../assets/bookImage.jpg")}
               onPress={() => setShowBookModal(true)}
@@ -197,7 +201,7 @@ export const Main = ({ navigation }) => {
           )
         }
         showsVerticalScrollIndicator={false}
-      </FlatListBook>
+      />
 
       <BookModal
         visible={showBookModal}
