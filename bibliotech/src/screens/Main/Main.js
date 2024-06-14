@@ -163,7 +163,7 @@ export const Main = ({ navigation }) => {
   return (
     <ContainerMain>
       <Header
-        source={require("../../assets/murilo.png")}
+        source={{uri : dadosUsuario.foto}}
         headerName={dadosUsuario.nome}
         headerID={dadosUsuario.email}
         onPress1={() => navigation.navigate("Profile")}

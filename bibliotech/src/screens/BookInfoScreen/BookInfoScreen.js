@@ -30,10 +30,8 @@ import { LinkButton, LinkText } from "../../components/Link/Style";
 import api from "../../services/service";
 import { Select } from "../../components/Select/Style";
 
-export const BookInfoScreen = ({
-  navigation
-}) => {
-  ///! DADOS MOCADOS
+export const BookInfoScreen = ({navigation}) => {
+  // /! DADOS MOCADOS
   const [bookId, setBookId] = useState({});
   const [selectedBook, setSelectedBook] = useState();
 
