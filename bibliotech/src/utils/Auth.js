@@ -19,6 +19,7 @@ export const userDecodeToken = async () => {
 
   //Decodifica o token recebido
   const decoded = jwtDecode(token);
+  console.log(decoded);
 
   return {
     name: decoded.name,

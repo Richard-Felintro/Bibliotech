@@ -70,6 +70,8 @@ export const RequestModal = ({ visible, showModal, navigation }) => {
   }
 
   async function HandleContinue(){
+    console.log("id");
+    console.log(selectedBook);
     navigation.replace('Calendar', {
       BookId: selectedBook,
     });

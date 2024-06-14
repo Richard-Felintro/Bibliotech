@@ -5,8 +5,8 @@ import {
   ModalContent,
   ViewRow,
 } from "../Container/Container";
+
 import { TitleSelecao } from "../Callendar/Style";
-import { BookThumbnail } from "../Image/Style";
 import { BookImageModal } from "../CardList/Style";
 import { TextField } from "../Text/TextField";
 import {
@@ -16,43 +16,69 @@ import {
   ButtonText,
   ButtonTextSmall,
 } from "../Button/Style";
+import api from "../../services/service";
+import { ConfirmModalContainer } from "./Style";
+import { LinkButton, LinkText } from "../Link/Style";
 
 export const ModalConfirm = ({
   setShowModalConfirm,
   visible,
+  bookData,
+  userId,
+  date,
+  navigation,
   MargintText = 20,
   MarginTButtom = 45,
   MbImage = 10,
   ...rest
 }) => {
+  async function HandleContinue() {
+    console.log(date);
+    console.log(userId);
+    console.log(bookData.idLivro);
+    await api.post(`/EmprestimoLivro`, {
+      situacao: "lendo",
+      dataDevolucao: date,
+      idUsuario: userId,
+      idLivro: bookData.idLivro,
+    }).then((response) => {
+      navigation.replace("Main")
+    })
+  }
+
   return (
-    <Modal
-      {...rest}
-      visible={visible}
-      // transparent={true}
-      animationType="fade"
-    >
-      <ConfirmModal>
+    <Modal visible={visible} transparent={true} animationType="fade">
+      <ConfirmModalContainer>
         <ModalContent>
           <TitleSelecao>CONFIRMAR EMPRÉSTIMO</TitleSelecao>
 
           <BookImageModal
             MbImage={MbImage}
-            source={require("../../assets/bookImage.jpg")}
+            source={bookData ? { uri: bookData.capa } : null}
           />
           <ContainerTextModal MarginTButtom={MargintText}>
-            <TextField label={"Título:"} content={"Gravity Falls"} />
-            <TextField label={"Autor:"} content={"Mickey Mouse"} />
+            <TextField
+              label={"Título:"}
+              content={bookData ? bookData.titulo : "Carregando..."}
+            />
+            <TextField
+              label={"Autor:"}
+              content={bookData ? bookData.autor : "Carregando..."}
+            />
           </ContainerTextModal>
 
           <ButtonModal
             MarginTButtom={MarginTButtom}
-            onPress={() => setShowModalConfirm(false)}
+            onPress={() => HandleContinue()}
           >
             <ButtonText>CONFIRMAR</ButtonText>
           </ButtonModal>
+
+          <LinkButton onPress={() => setShowModalConfirm(false)}>
+            <LinkText>Cancelar</LinkText>
+          </LinkButton>
         </ModalContent>
-      </ConfirmModal>
+      </ConfirmModalContainer>
     </Modal>
   );
 };
@@ -84,10 +110,7 @@ export const ModalLogout = ({
               <ButtonTextSmall>SIM</ButtonTextSmall>
             </ButtonOption>
 
-            <ButtonOption
-              MarginTButtom={MarginTButtom}
-              onPress={onPressCancel}
-            >
+            <ButtonOption MarginTButtom={MarginTButtom} onPress={onPressCancel}>
               <ButtonTextSmall>NÃO</ButtonTextSmall>
             </ButtonOption>
           </ViewRow>
