@@ -15,13 +15,14 @@ export const CameraModal = ({
 
   const [openModal, setOpenModal] = useState(null);
   const [photo, setPhoto] = useState(null);
-  const [cameraType, setCameraType] = useState(CameraType.front);
+  const [cameraType, setCameraType] = useState("front");
 
   async function CapturePhoto() {
     if (cameraRef) {
       const photo = await cameraRef.current.takePictureAsync();
 
       setPhoto(photo.uri);
+      console.log(photo.uri);
       setOpenModal(true);
       console.log(photo);
     }
@@ -39,9 +40,7 @@ export const CameraModal = ({
   }
 
   function ChangeCameraType() {
-    setCameraType(
-      cameraType == CameraType.front ? CameraType.back : CameraType.front
-    );
+    setCameraType(cameraType == "front" ? "back" : "front");
     console.log(cameraType);
   }
 
@@ -64,7 +63,7 @@ export const CameraModal = ({
         ref={cameraRef}
         style={styles.camera}
         ratio="16:9"
-        type={cameraType}
+        facing={cameraType}
         // zoom={0.05}
       >
         <CameraButton
@@ -88,6 +87,7 @@ export const CameraModal = ({
           <Image
             style={{
               margin: 10,
+              width: "90%",
               height: 500,
               borderRadius: 15,
             }}
