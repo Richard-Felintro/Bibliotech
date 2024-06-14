@@ -28,8 +28,8 @@ import Foundation from "@expo/vector-icons/Foundation";
 import { Title } from "../../components/Title/Style";
 import { LinkButton, LinkText } from "../../components/Link/Style";
 
-export const BookInfoScreen = () => {
-  ///! DADOS MOCADOS
+export const BookInfoScreen = ({navigation}) => {
+  // /! DADOS MOCADOS
   const [bookId, setBookId] = useState({});
   const [selectedBook, setSelectedBook] = useState({});
 

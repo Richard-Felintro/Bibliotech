@@ -34,3 +34,5 @@ export const Seila = styled.View`
 export const LinkButtomCamera = styled(LinkButton)`
   margin-top: 10px;
 `;
+
+export const LastPicture = styled.TouchableOpacity;

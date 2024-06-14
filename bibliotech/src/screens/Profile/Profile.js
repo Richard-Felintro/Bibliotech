@@ -29,6 +29,8 @@ export const Profile = ({ PadContainer = 10, navigation, route }) => {
   const [perfilUsuario, setPerfilUsuario] = useState("");
   const [dadosUsuario, setDadosUsuario] = useState({});
   const [idUsuario, setIdUsuario] = useState("");
+  const [uriCameraCapture, setUriCameraCapture] = useState(null);
+  const [photo, setPhoto] = useState();
 
   async function Logout(navigation) {
     try {
@@ -84,56 +86,50 @@ export const Profile = ({ PadContainer = 10, navigation, route }) => {
       });
   };
 
-  async function requestGaleria() {
-    await MediaLibrary.requestPermissionsAsync();
 
-    await ImagePicker.requestMediaLibraryPermissionsAsync();
-  }
 
   useEffect(() => {
-    requestGaleria();
-  }, []);
+    (async () => {
+      await MediaLibrary.requestMediaLibraryPermissionsAsync;
+      await ImagePicker.requestPermissionAsync;
+      console.log(uriCameraCapture);
+    })();
+  }, [uriCameraCapture]);
 
-  async function AlterarFotoPerfil() {
-    const token = await userDecodeToken();
+  async function ChangeProfilePhoto() {
+    CarregarDadosUsuario();
+    console.log(`/Usuario/AlterarFotoPerfil?id=${id}`);
+
     const formData = new FormData();
+
     formData.append("Arquivo", {
-      uri: route.params.uriPhoto,
-      name: `image.${route.params.uriPhoto.split(".").pop()}`,
-      type: `image/${route.params.uriPhoto.split(".").pop()}`,
+      uri: uriCameraCapture,
+      name: `image.${uriCameraCapture.split(".")[1]}`,
+      type: `image/${uriCameraCapture.split(".")[1]}`,
     });
 
     await api
-      .put(`/Usuario/AlterarFotoPerfil?id=${token.id}`, formData, {
+      .put(`/Usuario/AlterarFotoPerfil?id=${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then(async () => {
-        await setPerfilUsuario({
-          ...perfilUsuario,
-          idNavigation: {
-            ...perfilUsuario.idNavigation,
-            foto: route.params.uriPhoto,
-          },
-        });
-      })
-      .catch((error) => {
-        console.log(error);
+      .then((response) => {
+        console.log("then");
+        console.log(response);
+        setPhoto(uriCameraCapture);
       });
   }
 
   useEffect(() => {
-    if (route.params != null && idUsuario != "") {
-      AlterarFotoPerfil();
+    CarregarDadosUsuario();
+  }, []);
+  useEffect(() => {
+    if (uriCameraCapture != null) {
+      ChangeProfilePhoto();
     }
-  }, [idUsuario]);
+  }, [uriCameraCapture]);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      CarregarDadosUsuario();
-    }, [])
-  );
   return (
     <ScrollView
       style={{
@@ -179,6 +175,7 @@ export const Profile = ({ PadContainer = 10, navigation, route }) => {
       <CameraModal
         visible={showCamera}
         setShowModalCamera={setShowModalCamera}
+        setUriCameraCapture={setUriCameraCapture}
       />
       <ModalLogout
         navigation={navigation}
