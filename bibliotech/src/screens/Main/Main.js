@@ -52,7 +52,7 @@ export const Main = ({ navigation }) => {
   const [perfilUsuario, setPerfilUsuario] = useState("");
   const [dadosUsuario, setDadosUsuario] = useState({});
   const [idUsuario, setIdUsuario] = useState("");
-  const [livro, setLivro] = useState({});
+  const [livro, setLivro] = useState([]);
   const [reload , setReload] = useState(false);
   const [livroList, setLivroList] = useState([])
 

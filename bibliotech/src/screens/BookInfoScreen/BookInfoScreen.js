@@ -27,11 +27,15 @@ import { useEffect, useState } from "react";
 import Foundation from "@expo/vector-icons/Foundation";
 import { Title } from "../../components/Title/Style";
 import { LinkButton, LinkText } from "../../components/Link/Style";
+import api from "../../services/service";
+import { Select } from "../../components/Select/Style";
 
-export const BookInfoScreen = () => {
+export const BookInfoScreen = ({
+  navigation
+}) => {
   ///! DADOS MOCADOS
   const [bookId, setBookId] = useState({});
-  const [selectedBook, setSelectedBook] = useState({});
+  const [selectedBook, setSelectedBook] = useState();
 
   //* Livro mocado
   const book = {
@@ -83,7 +87,12 @@ export const BookInfoScreen = () => {
   }, []);
 
   async function LoadBook() {
-    setSelectedBook(book);
+    
+    const promise = await api.get("/Resenha/ListarResenhasComId/a50630d2-19b5-4f8f-9ea6-a6cbbd26631f")
+
+    setSelectedBook(promise.data);
+
+    console.log(promise.data.livro.titulo);
   }
 
   return (
@@ -93,19 +102,19 @@ export const BookInfoScreen = () => {
           source={require("../../assets/LOGO.png")}
         ></BookThumbnail>
         <ContainerColumn>
-          <TextField label={"Título:"} content={selectedBook.titulo} />
+          {/* <TextField label={"Título:"} content={selectedBook.titulo} />
           <TextField label={"Gênero:"} content={selectedBook.genero} />
           <TextField label={"Autor:"} content={selectedBook.autor} />
           <TextField label={"Editor:"} content={selectedBook.editor} />
-          <TextField label={"ISBN:"} content={selectedBook.isbn} />
+          <TextField label={"ISBN:"} content={selectedBook.isbn} /> */}
           <IconField>
             <ContainerIcon>
               <Entypo name="star" size={24} color="#468FAF" />
-              <TextLeft>{selectedBook.rating}</TextLeft>
+              <TextLeft>Teste</TextLeft>
             </ContainerIcon>
             <ContainerIcon>
               <AntDesign name="heart" size={20} color="#468FAF" />
-              <TextLeft>{selectedBook.favCount}</TextLeft>
+              <TextLeft>Teste</TextLeft>
             </ContainerIcon>
           </IconField>
         </ContainerColumn>
