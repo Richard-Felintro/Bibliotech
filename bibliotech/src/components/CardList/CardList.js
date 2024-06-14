@@ -21,6 +21,9 @@ export const CardList = ({
   onPress,
   status = "lendo",
 }) => {
+
+
+ 
   return (
     <ListBookView>
       <ListBookCard onPress={onPress}>
@@ -43,7 +46,7 @@ export const CardList = ({
                   color="#61A5C2"
                 />
 
-                <BookReturnDate>{ returnDate  }</BookReturnDate>
+                <BookReturnDate>{returnDate}</BookReturnDate>
               </BookReturnDateView>
             </>
           ) : status == "lido" ? (
