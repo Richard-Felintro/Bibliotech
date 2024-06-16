@@ -10,6 +10,8 @@ import {
   ModalTransparent,
 } from "./Style";
 import { LinkButton, LinkText } from "../Link/Style";
+import { useEffect, useState } from "react";
+import api from "../../services/service";
 
 export const BookModal = ({
   navigation,
@@ -17,31 +19,45 @@ export const BookModal = ({
   setShowBookModal,
   onPress,
   onPressCancel,
+  bookName,
+  bookAuthor,
+  bookEditor,
+ bookYear,
+ source,
+ livroData,
+bookIsbn,
+ data,
   ...rest
 }) => {
+  
+  
   return (
     <Modal visible={visible} animationType="fade" transparent={true} {...rest}>
       <ModalTransparent>
         <ModalBookView>
-          <ModalBookImg source={require("../../assets/bookImage.jpg")} />
+          {/*<ModalBookImg source={source} />*/}
+          <ModalBookImg 
+              source={source}
+          />
           <ModalBookInfoView>
             <ModalBookInfoTitle>
-              Titulo:{" "}
-              <ModalBookInfoText>
-                Felipe Neto, A trajetória de um dos maiores youtubers do Brasil
+              Titulo: {bookName}
+              <ModalBookInfoText
+              >
+             
               </ModalBookInfoText>
             </ModalBookInfoTitle>
             <ModalBookInfoTitle>
-              Autor: <ModalBookInfoText>Felipe Neto</ModalBookInfoText>
+              Autor: <ModalBookInfoText>{bookAuthor}</ModalBookInfoText>
             </ModalBookInfoTitle>
             <ModalBookInfoTitle>
-              Editora: <ModalBookInfoText>Coquetel</ModalBookInfoText>
+              Editora: <ModalBookInfoText>{bookEditor}</ModalBookInfoText>
             </ModalBookInfoTitle>
             <ModalBookInfoTitle>
-              Ano: <ModalBookInfoText>2017</ModalBookInfoText>
+              Ano: <ModalBookInfoText>{bookYear}</ModalBookInfoText>
             </ModalBookInfoTitle>
             <ModalBookInfoTitle>
-              ISBN: <ModalBookInfoText>8579027667</ModalBookInfoText>
+              ISBN: <ModalBookInfoText>{bookIsbn}</ModalBookInfoText>
             </ModalBookInfoTitle>
 
             <ModalBookBtn onPress={onPress}>
