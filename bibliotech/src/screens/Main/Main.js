@@ -92,6 +92,7 @@ export const Main = ({ navigation }) => {
   async function getIdBooks(){
     
     try {
+      setShowBookModal(true)
       livro.forEach(async (item) =>{
 
         
@@ -181,7 +182,7 @@ export const Main = ({ navigation }) => {
 
   useEffect(() => {
 
-    getIdBooks()
+   
       console.log("LIVROOOOOOO")
         console.log(infoBook);
     //console.log("ESSE É O ID DO LIVRO!!!!:");
@@ -240,7 +241,7 @@ export const Main = ({ navigation }) => {
               returnDate={moment(item.dataDevolucao).format("DD/MM/YYYY")}
               status={item.situacao}
               source={item.livro.capa != null ? { uri: item.livro.capa } : null}
-              onPress={() =>setShowBookModal(true)}
+              onPress={() => getIdBooks()}
             />
           )
         }
