@@ -10,6 +10,8 @@ import {
   ModalTransparent,
 } from "./Style";
 import { LinkButton, LinkText } from "../Link/Style";
+import { useEffect, useState } from "react";
+import api from "../../services/service";
 
 export const BookModal = ({
   navigation,
@@ -18,13 +20,26 @@ export const BookModal = ({
   bookData,
   onPress,
   onPressCancel,
+  bookName,
+  bookAuthor,
+  bookEditor,
+ bookYear,
+ source,
+ livroData,
+bookIsbn,
+ data,
   ...rest
 }) => {
+  
+  
   return (
     <Modal visible={visible} animationType="fade" transparent={true} {...rest}>
       <ModalTransparent>
         <ModalBookView>
-          <ModalBookImg source={require("../../assets/bookImage.jpg")} />
+          {/*<ModalBookImg source={source} />*/}
+          <ModalBookImg 
+              source={source}
+          />
           <ModalBookInfoView>
             <ModalBookInfoTitle>
               Titulo: <ModalBookInfoText>{bookData.titulo}</ModalBookInfoText>
