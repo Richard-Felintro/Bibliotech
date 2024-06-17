@@ -29,11 +29,15 @@ import { Title } from "../../components/Title/Style";
 import { LinkButton, LinkText } from "../../components/Link/Style";
 import api from "../../services/service";
 import { Select } from "../../components/Select/Style";
+import { userDecodeToken } from "../../utils/Auth";
 
-export const BookInfoScreen = ({navigation}) => {
+export const BookInfoScreen = ({ navigation, route }) => {
+  const { bookData } = route.params;
+
   // /! DADOS MOCADOS
   const [bookId, setBookId] = useState({});
   const [selectedBook, setSelectedBook] = useState();
+  const [foundComments, setFoundComments] = useState([]);
 
   //* Livro mocado
   const book = {
@@ -45,7 +49,7 @@ export const BookInfoScreen = ({navigation}) => {
     isbn: 1254759812357,
     rating: 5.0,
     favCount: "15M",
-  }
+  };
 
   //* Comentários mocados
   const [comments, setComments] = useState([
@@ -81,18 +85,14 @@ export const BookInfoScreen = ({navigation}) => {
 
   //
   useEffect(() => {
-    LoadBook();
+    LoadComments();
   }, []);
 
-  async function LoadBook() {
-    
-    const promise = await api.get("/Resenha/ListarResenhasComId/a50630d2-19b5-4f8f-9ea6-a6cbbd26631f")
-
-    setSelectedBook(promise.data);
-
-    console.log(promise.data.livro.titulo);
+  async function LoadComments() {
+    await api
+      .get(`/Resenha/ListarResenhasComId/${await userDecodeToken().id}`)
+      .then((response) => setFoundComments(response.data));
   }
-
   return (
     <ContainerGradientDark>
       <BookInfoContainer>
@@ -100,11 +100,11 @@ export const BookInfoScreen = ({navigation}) => {
           source={require("../../assets/LOGO.png")}
         ></BookThumbnail>
         <ContainerColumn>
-          {/* <TextField label={"Título:"} content={selectedBook.titulo} />
-          <TextField label={"Gênero:"} content={selectedBook.genero} />
-          <TextField label={"Autor:"} content={selectedBook.autor} />
-          <TextField label={"Editor:"} content={selectedBook.editor} />
-          <TextField label={"ISBN:"} content={selectedBook.isbn} /> */}
+          <TextField label={"Título:"} content={bookData.titulo} />
+          <TextField label={"Gênero:"} content={bookData.genero.tituloGenero} />
+          <TextField label={"Autor:"} content={bookData.autor} />
+          <TextField label={"Editor:"} content={bookData.editor} />
+          <TextField label={"ISBN:"} content={bookData.isbn} />
           <IconField>
             <ContainerIcon>
               <Entypo name="star" size={24} color="#468FAF" />

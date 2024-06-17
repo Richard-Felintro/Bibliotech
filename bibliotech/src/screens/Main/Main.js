@@ -53,51 +53,54 @@ export const Main = ({ navigation }) => {
   const [dadosUsuario, setDadosUsuario] = useState({});
   const [idUsuario, setIdUsuario] = useState("");
   const [livro, setLivro] = useState([]);
-  const [reload , setReload] = useState(false);
+  const [reload, setReload] = useState(false);
   const [livroList, setLivroList] = useState([]);
+  const [selectedBookData, setSelectedBookData] = useState({});
+  const [idEmprestimo, setIdEmprestimo] = useState({});
 
- 
-  const [idEmprestimo, setIdEmprestimo] = useState({})
-
-     // States para verficar os dias
-     const [diaAtual, setDiaAtual] = useState()
-     const [diaDevolucao, setDiaDevolucao] = useState()
+  // States para verficar os dias
+  const [diaAtual, setDiaAtual] = useState();
+  const [diaDevolucao, setDiaDevolucao] = useState();
   async function listBooks(idUsuario) {
     try {
-      await api.get(
-        `/EmprestimoLivro/ListarMeus/${idUsuario}`
-      ).then(async (response) => {
-        setLivro(response.data);
-        const formattedDate = new Date(item.dataDevolucao).toLocaleDateString('pt-BR')
-        setIdEmprestimo(response.data[0].idEmprestimoLivro)
-      });
-
+      await api
+        .get(`/EmprestimoLivro/ListarMeus/${idUsuario}`)
+        .then(async (response) => {
+          setLivro(response.data);
+          const formattedDate = new Date(item.dataDevolucao).toLocaleDateString(
+            "pt-BR"
+          );
+          setIdEmprestimo(response.data[0].idEmprestimoLivro);
+        });
     } catch (error) {
       console.log(error);
     }
   }
 
-
   function AtualizarStatus(idEmprestimo) {
     const currentDate = new Date();
-    setDiaAtual(currentDate.getTime())
+    setDiaAtual(currentDate.getTime());
 
     livro.forEach(async (item) => {
+      const dataComoObjeto = new Date(item.dataDevolucao);
+      const dataComoInteiro = dataComoObjeto.getTime();
 
-        const dataComoObjeto = new Date(item.dataDevolucao);
-        const dataComoInteiro = dataComoObjeto.getTime();
+      setDiaDevolucao(dataComoInteiro);
+      if (dataComoInteiro <= currentDate.getTime()) {
+        await api
+          .put(
+            `/EmprestimoLivro/AtualizarStatus?id=${item.idEmprestimoLivro}`,
+            {
+              situacao: "lido",
+            }
+          )
+          .then(() => {
+            listBooks(idUsuario);
+          });
+        setReload(true);
+      }
 
-        setDiaDevolucao(dataComoInteiro);
-        if (dataComoInteiro <= currentDate.getTime()) {
-            await api.put(`/EmprestimoLivro/AtualizarStatus?id=${item.idEmprestimoLivro}`, {
-              situacao: "lido"
-            }).then(() => {
-              listBooks(idUsuario)
-            })
-            setReload(true)
-        }
-
-        //console.log(item.id);
+      //console.log(item.id);
     });
   }
   async function Logout(navigation) {
@@ -136,21 +139,33 @@ export const Main = ({ navigation }) => {
   }
 
   const CarregarDadosUsuario = async (idUsuario) => {
-    await api.get(`/Usuario/BuscarPorId/${idUsuario}`)
-    .then( async (response) => {
-      setDadosUsuario(response.data);
+    await api
+      .get(`/Usuario/BuscarPorId/${idUsuario}`)
+      .then(async (response) => {
+        setDadosUsuario(response.data);
 
-      await listBooks(idUsuario);
-    })
-    .catch((erro) => {
-      console.log(erro);
-    });
+        await listBooks(idUsuario);
+      })
+      .catch((erro) => {
+        console.log(erro);
+      });
   };
 
+  async function handleBookModal(id) {
+    await api
+      .get(`/Livro/BuscarPorId/${id}`)
+      .then(async (response) => {
+        setSelectedBookData(response.data);
+      })
+      .catch((erro) => {
+        console.log(erro);
+      });
+    setShowBookModal(true);
+  }
 
   useEffect(() => {
     console.log("EMPRESTIMOOOOOO!!!!");
-    console.log(idEmprestimo)
+    console.log(idEmprestimo);
     ProfileInfo()
       .then(async (token) => {
         setPerfilUsuario(token.perfil);
@@ -165,12 +180,12 @@ export const Main = ({ navigation }) => {
         console.log(`Não foi possível buscar as informações do usuário`);
         console.log(`Erro: ${erro}`);
       });
-  }, [idEmprestimo])
+  }, [idEmprestimo]);
 
   return (
     <ContainerMain>
       <Header
-        source={{uri : dadosUsuario.foto}}
+        source={{ uri: dadosUsuario.foto }}
         headerName={dadosUsuario.nome}
         headerID={dadosUsuario.email}
         onPress1={() => navigation.navigate("Profile")}
@@ -193,19 +208,18 @@ export const Main = ({ navigation }) => {
       <FlatListBook
         data={livro}
         keyExtractor={(item) => item.id}
-        renderItem=
-        {({ item }) =>
+        renderItem={({ item }) =>
           // <Text style={{ color : "#fbfbfb"}}>Hello world</Text>
           statusLista == item.situacao && (
             <CardList
-           
-              bookName={`${item.livro.titulo.substr(0, 23)}${item.livro.titulo.length >= 23 ? "..." : ""
-                }`}
+              bookName={`${item.livro.titulo.substr(0, 23)}${
+                item.livro.titulo.length >= 23 ? "..." : ""
+              }`}
               bookAuthor={item.livro.autor}
-              returnDate= {moment(item.dataDevolucao).format("DD/MM/YYYY")}
+              returnDate={moment(item.dataDevolucao).format("DD/MM/YYYY")}
               status={item.situacao}
-              source={{uri:item.capa}}
-              onPress={() => setShowBookModal(true)}
+              source={{ uri: item.capa }}
+              onPress={() => handleBookModal(item.id)}
             />
           )
         }
@@ -216,7 +230,8 @@ export const Main = ({ navigation }) => {
         visible={showBookModal}
         setShowBookModal={setShowBookModal}
         navigation={navigation}
-        onPress={() => GoToBookScreen()}
+        bookData={selectedBookData}
+        onPress={() => GoToBookScreen("BookInfo", bookData)}
         onPressCancel={() => setShowBookModal(false)}
       />
 

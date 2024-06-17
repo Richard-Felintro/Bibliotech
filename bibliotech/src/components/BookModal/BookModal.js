@@ -15,6 +15,7 @@ export const BookModal = ({
   navigation,
   visible,
   setShowBookModal,
+  bookData,
   onPress,
   onPressCancel,
   ...rest
@@ -26,22 +27,19 @@ export const BookModal = ({
           <ModalBookImg source={require("../../assets/bookImage.jpg")} />
           <ModalBookInfoView>
             <ModalBookInfoTitle>
-              Titulo:{" "}
-              <ModalBookInfoText>
-                Felipe Neto, A trajetória de um dos maiores youtubers do Brasil
-              </ModalBookInfoText>
+              Titulo: <ModalBookInfoText>{bookData.titulo}</ModalBookInfoText>
             </ModalBookInfoTitle>
             <ModalBookInfoTitle>
-              Autor: <ModalBookInfoText>Felipe Neto</ModalBookInfoText>
+              Autor: <ModalBookInfoText>{bookData.autor}</ModalBookInfoText>
             </ModalBookInfoTitle>
             <ModalBookInfoTitle>
-              Editora: <ModalBookInfoText>Coquetel</ModalBookInfoText>
+              Editora: <ModalBookInfoText>{bookData.editora}</ModalBookInfoText>
             </ModalBookInfoTitle>
             <ModalBookInfoTitle>
-              Ano: <ModalBookInfoText>2017</ModalBookInfoText>
+              Ano: <ModalBookInfoText>{bookData.ano}</ModalBookInfoText>
             </ModalBookInfoTitle>
             <ModalBookInfoTitle>
-              ISBN: <ModalBookInfoText>8579027667</ModalBookInfoText>
+              ISBN: <ModalBookInfoText>{bookData.isbn}</ModalBookInfoText>
             </ModalBookInfoTitle>
 
             <ModalBookBtn onPress={onPress}>
