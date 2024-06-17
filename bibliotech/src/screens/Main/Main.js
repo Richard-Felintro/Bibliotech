@@ -71,7 +71,10 @@ export const Main = ({ navigation }) => {
             "pt-BR"
           );
           setIdEmprestimo(response.data[0].idEmprestimoLivro);
-        });
+        })
+
+
+       
     } catch (error) {
       console.log(error);
     }
