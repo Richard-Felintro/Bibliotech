@@ -150,11 +150,6 @@ export const Main = ({ navigation }) => {
       .catch((erro) => {
         console.log(erro);
       });
-        await listBooks(idUsuario);
-      })
-      .catch((erro) => {
-        console.log(erro);
-      });
   };
 
   async function handleBookModal(id) {
@@ -170,12 +165,9 @@ export const Main = ({ navigation }) => {
   }
 
   useEffect(() => {
-
-   
-      console.log("LIVROOOOOOO")
-        console.log(infoBook);
+    console.log("LIVROOOOOOO");
     //console.log("ESSE É O ID DO LIVRO!!!!:");
-          //console.log(idLivro);;
+    //console.log(idLivro);;
     ProfileInfo()
       .then(async (token) => {
         setPerfilUsuario(token.perfil);
@@ -195,7 +187,6 @@ export const Main = ({ navigation }) => {
   return (
     <ContainerMain>
       <Header
-        source={{ uri: dadosUsuario.foto }}
         source={{ uri: dadosUsuario.foto }}
         headerName={dadosUsuario.nome}
         headerID={dadosUsuario.email}
@@ -228,7 +219,6 @@ export const Main = ({ navigation }) => {
               }`}
               bookAuthor={item.livro.autor}
               returnDate={moment(item.dataDevolucao).format("DD/MM/YYYY")}
-              returnDate={moment(item.dataDevolucao).format("DD/MM/YYYY")}
               status={item.situacao}
               source={{ uri: item.capa }}
               onPress={() => handleBookModal(item.id)}
@@ -239,14 +229,7 @@ export const Main = ({ navigation }) => {
       />
 
       <BookModal
-          livroData={livro}
-          
-        bookName={infoBook.titulo}
-        bookAuthor={infoBook.autor}
-        bookYear={infoBook.ano}
-        bookEditor={infoBook.editora} 
-        bookIsbn={infoBook.isbn}
-        source={infoBook.capa != null ? { uri: infoBook.capa } : null}
+        livroData={livro}
         visible={showBookModal}
         setShowBookModal={setShowBookModal}
         navigation={navigation}
