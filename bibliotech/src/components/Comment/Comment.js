@@ -8,14 +8,15 @@ import {
   CommentDate,
   CommentName,
 } from "./Style";
+import moment from "moment/min/moment-with-locales";
 
-export const BookComment = ({ userName, date, content }) => {
+export const BookComment = ({ userName, date, content, imgSource }) => {
   return (
     <CommentContainer>
-      <CommentPfp source={require("../../assets/murilo.png")} />
+      <CommentPfp source={{ uri: imgSource }} />
       <CommentColumn>
         <CommentName>{userName}</CommentName>
-        <CommentDate>{date}</CommentDate>
+        <CommentDate>{moment(date).locale("pt-br").format("LL")}</CommentDate>
         <CommentContent>{content}</CommentContent>
       </CommentColumn>
     </CommentContainer>

@@ -16,7 +16,8 @@ export const LinkButton = styled.TouchableOpacity`
   background: transparent;
   border: none !important;
   font-size: 0;
-  margin-top: 25px;
+  margin-top: 15px;
+  margin-bottom: 25px;
 `;
 export const LinkButtonLogin = styled.TouchableOpacity`
   width: fit-content;

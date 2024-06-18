@@ -29,15 +29,37 @@ import { Title } from "../../components/Title/Style";
 import { LinkButton, LinkText } from "../../components/Link/Style";
 import api from "../../services/service";
 import { Select } from "../../components/Select/Style";
-import { userDecodeToken } from "../../utils/Auth";
+import { ProfileInfo, userDecodeToken } from "../../utils/Auth";
+import moment from "moment";
 
 export const BookInfoScreen = ({ navigation, route }) => {
   const { bookData } = route.params;
 
   // /! DADOS MOCADOS
-  const [bookId, setBookId] = useState({});
-  const [selectedBook, setSelectedBook] = useState();
-  const [foundComments, setFoundComments] = useState([]);
+  const [commentContent, setCommentContent] = useState();
+  const [idUsuario, setIdUsuario] = useState();
+
+  async function SubmitComment() {
+    const nya = userDecodeToken();
+    console.log("Submit");
+    console.log(commentContent);
+    console.log(moment().format("YYYY-MM-DD"));
+    console.log(idUsuario);
+    console.log(bookData.idLivro);
+    await api
+      .post(`/Resenha`, {
+        descricao: commentContent,
+        exibe: true,
+        dataComentario: moment().format("YYYY-MM-DD"),
+        idUsuario: idUsuario,
+        idLivro: bookData.idLivro,
+      })
+      .then((response) => {
+        console.log(response.data);
+        LoadComments();
+        setCommentContent("");
+      });
+  }
 
   //* Livro mocado
   const book = {
@@ -52,60 +74,41 @@ export const BookInfoScreen = ({ navigation, route }) => {
   };
 
   //* Comentários mocados
-  const [comments, setComments] = useState([
-    {
-      id: 0,
-      username: "Murilo",
-      date: "24 de maio",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-    {
-      id: 1,
-      username: "Murilo",
-      date: "24 de maio",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-    {
-      id: 2,
-      username: "Murilo",
-      date: "24 de maio",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-    {
-      id: 3,
-      username: "Murilo",
-      date: "24 de maio",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-  ]);
+  const [comments, setComments] = useState([]);
 
   //
   useEffect(() => {
     LoadComments();
+    LoadUserData();
   }, []);
 
+  async function LoadUserData() {
+    await ProfileInfo().then(async (token) => {
+      setIdUsuario(token.id);
+      console.log(idUsuario);
+    });
+  }
+
   async function LoadComments() {
+    console.log(bookData);
     await api
-      .get(`/Resenha/ListarResenhasComId/${await userDecodeToken().id}`)
-      .then((response) => setFoundComments(response.data));
+      .get(`/Resenha/ListarResenhasComId/${bookData.idLivro}`)
+      .then((response) => {
+        console.log(response.data);
+        setComments(response.data);
+      });
   }
   return (
     <ContainerGradientDark>
       <BookInfoContainer>
-        <BookThumbnail
-          source={require("../../assets/LOGO.png")}
-        ></BookThumbnail>
+        <BookThumbnail source={{ uri: bookData.capa }} />
         <ContainerColumn>
           <TextField label={"Título:"} content={bookData.titulo} />
           <TextField label={"Gênero:"} content={bookData.genero.tituloGenero} />
           <TextField label={"Autor:"} content={bookData.autor} />
-          <TextField label={"Editor:"} content={bookData.editor} />
+          <TextField label={"Editora:"} content={bookData.editora} />
           <TextField label={"ISBN:"} content={bookData.isbn} />
-          <IconField>
+          {/* <IconField>
             <ContainerIcon>
               <Entypo name="star" size={24} color="#468FAF" />
               <TextLeft>Teste</TextLeft>
@@ -114,24 +117,25 @@ export const BookInfoScreen = ({ navigation, route }) => {
               <AntDesign name="heart" size={20} color="#468FAF" />
               <TextLeft>Teste</TextLeft>
             </ContainerIcon>
-          </IconField>
+          </IconField> */}
         </ContainerColumn>
       </BookInfoContainer>
 
       <CommentContainer>
         <InputBox>
-          <CommentTitle>{"     Resenhas     "}</CommentTitle>
+          <CommentTitle>{"     Comentários     "}</CommentTitle>
         </InputBox>
 
         <CommentFlatList
           nestedScrollEnabled
           data={comments}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.idResenha}
           renderItem={({ item }) => (
             <BookComment
-              userName={item.username}
-              date={item.date}
-              content={item.content}
+              imgSource={item.usuario.foto}
+              userName={item.usuario.nome}
+              date={item.dataComentario}
+              content={item.descricao}
             />
           )}
         />
@@ -140,12 +144,17 @@ export const BookInfoScreen = ({ navigation, route }) => {
       <CommentButton>
         <ContainerRow>
           <Foundation name="pencil" size={20} color="#A1D9DF" />
-          <InputText placeholder={"Adicione sua resenha!"} />
+          <InputText
+            value={commentContent}
+            onChangeText={(e) => setCommentContent(e)}
+            onSubmitEditing={() => SubmitComment()}
+            placeholder={"Adicione seu comentário!"}
+          />
         </ContainerRow>
       </CommentButton>
 
       <LinkButton onPress={() => navigation.navigate("BottonTab")}>
-        <LinkText>sair</LinkText>
+        <LinkText>Cancelar</LinkText>
       </LinkButton>
     </ContainerGradientDark>
   );
