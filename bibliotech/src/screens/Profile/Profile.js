@@ -86,8 +86,6 @@ export const Profile = ({ PadContainer = 10, navigation, route }) => {
       });
   };
 
-
-
   useEffect(() => {
     (async () => {
       await MediaLibrary.requestMediaLibraryPermissionsAsync;
@@ -98,7 +96,8 @@ export const Profile = ({ PadContainer = 10, navigation, route }) => {
 
   async function ChangeProfilePhoto() {
     CarregarDadosUsuario();
-    console.log(`/Usuario/AlterarFotoPerfil?id=${id}`);
+    console.log(`/Usuario/AlterarFotoPerfil?id=${idUsuario}`);
+    console.log(idUsuario)
 
     const formData = new FormData();
 
@@ -109,7 +108,7 @@ export const Profile = ({ PadContainer = 10, navigation, route }) => {
     });
 
     await api
-      .put(`/Usuario/AlterarFotoPerfil?id=${id}`, formData, {
+      .put(`/Usuario/AlterarFotoPerfil?id=${idUsuario}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

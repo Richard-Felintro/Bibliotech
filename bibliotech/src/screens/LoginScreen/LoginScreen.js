@@ -3,7 +3,7 @@ import {
   ContainerInput,
   ContainerGradient,
 } from "../../components/Container/Style";
-import { Input } from "../../components/Input/Input";
+import { Input, PasswordInput } from "../../components/Input/Input";
 import { ButtonDark, ButtonText } from "../../components/Button/Style";
 import {
   LinkButton,
@@ -94,7 +94,11 @@ export const LoginScreen = ({ navigation }) => {
         />
         <ContainerInput>
           <Input placeholder={"EMAIL"} onChange={(e) => setEmail(e)} />
-          <Input placeholder={"SENHA"} onChange={(e) => setSenha(e)} />
+          <PasswordInput
+            placeholder={"SENHA"}
+            onChange={(e) => setSenha(e)}
+            value={senha}
+          />
         </ContainerInput>
 
         <ButtonDark onPress={() => HandleLogin()}>
