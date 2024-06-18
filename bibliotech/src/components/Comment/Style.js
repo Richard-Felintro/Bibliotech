@@ -21,6 +21,7 @@ export const CommentDate = styled(TextLight)`
 
 export const CommentContent = styled(TextContent)`
   font-size: 14px;
+  height: 75px;
   text-align: left;
 `;
 

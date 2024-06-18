@@ -40,7 +40,7 @@ export const TextHighlight = styled.Text`
 export const TextFieldContent = styled(TextHighlight)`
   font-family: "MontserratAlternates_400Regular";
   text-align: left;
-  width: 80%;
+  width: 90%;
 `;
 
 export const TextFieldBox = styled.View`

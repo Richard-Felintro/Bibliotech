@@ -42,6 +42,9 @@ export const ModalConfirm = ({
       idUsuario: userId,
       idLivro: bookData.idLivro,
     }).then((response) => {
+       api.put(`/Livro/AtualizarStatus?id=${bookData.idLivro}`,{
+        situacaoLivro: "indisponivel"
+      });
       navigation.replace("Main")
     })
   }

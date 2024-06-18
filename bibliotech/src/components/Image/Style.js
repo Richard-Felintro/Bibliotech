@@ -10,6 +10,6 @@ export const BookThumbnail = styled.Image`
 export const CommentPfp = styled.Image`
   width: 70px;
   width: 70px;
-  border-radius: 35px;
+  border-radius: 50px;
   margin-bottom: 80px;
 `;

@@ -18,28 +18,21 @@ export const BookModal = ({
   visible,
   setShowBookModal,
   bookData,
-  onPress,
-  onPressCancel,
-  bookName,
-  bookAuthor,
-  bookEditor,
- bookYear,
- source,
- livroData,
-bookIsbn,
- data,
+  bookIsbn,
+  data,
   ...rest
 }) => {
-  
-  
+
+  async function HandleContinue() {
+    navigation.replace("BookInfo", {bookData : bookData});
+  }
+
   return (
     <Modal visible={visible} animationType="fade" transparent={true} {...rest}>
       <ModalTransparent>
         <ModalBookView>
           {/*<ModalBookImg source={source} />*/}
-          <ModalBookImg 
-              source={source}
-          />
+          <ModalBookImg source={{ uri: bookData.capa }} />
           <ModalBookInfoView>
             <ModalBookInfoTitle>
               Titulo: <ModalBookInfoText>{bookData.titulo}</ModalBookInfoText>
@@ -57,15 +50,13 @@ bookIsbn,
               ISBN: <ModalBookInfoText>{bookData.isbn}</ModalBookInfoText>
             </ModalBookInfoTitle>
 
-            <ModalBookBtn onPress={onPress}>
+            <ModalBookBtn onPress={() => HandleContinue()}>
               <ModalBookBtnTitle>Ver Resenhas</ModalBookBtnTitle>
             </ModalBookBtn>
 
-            <LinkButton onPress={onPressCancel}>
+            <LinkButton onPress={() => setShowBookModal(false)}>
               <LinkText>Voltar</LinkText>
             </LinkButton>
-
-
           </ModalBookInfoView>
         </ModalBookView>
       </ModalTransparent>
