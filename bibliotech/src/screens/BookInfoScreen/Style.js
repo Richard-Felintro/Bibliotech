@@ -7,6 +7,7 @@ import { Title } from "../../components/Title/Style";
 import { FlatList, Image } from "react-native";
 
 export const BookInfoContainer = styled(ContainerRow)`
+  margin-top: 25px;
   height: 30%;
 `;
 
@@ -32,7 +33,7 @@ export const CommentFlatList = styled(FlatList)`
   margin-top: 20px;
 `;
 
-export const CommentButton = styled.TouchableOpacity`
+export const CommentButton = styled.View`
   margin: 20px;
   padding-left: 15px;
   flex-direction: row;

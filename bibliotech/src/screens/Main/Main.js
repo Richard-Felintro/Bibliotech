@@ -14,6 +14,7 @@ import { ProfileInfo } from "../../utils/Auth";
 import api from "../../services/service";
 import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const Livros = [
   {
     id: 1,
@@ -71,7 +72,10 @@ export const Main = ({ navigation }) => {
             "pt-BR"
           );
           setIdEmprestimo(response.data[0].idEmprestimoLivro);
-        });
+        })
+
+
+       
     } catch (error) {
       console.log(error);
     }
@@ -153,9 +157,11 @@ export const Main = ({ navigation }) => {
   };
 
   async function handleBookModal(id) {
+    console.log(id);
     await api
       .get(`/Livro/BuscarPorId/${id}`)
       .then(async (response) => {
+        console.log(response.data);
         setSelectedBookData(response.data);
       })
       .catch((erro) => {
@@ -209,7 +215,7 @@ export const Main = ({ navigation }) => {
 
       <FlatListBook
         data={livro}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.livro.idLivro}
         renderItem={({ item }) =>
           // <Text style={{ color : "#fbfbfb"}}>Hello world</Text>
           statusLista == item.situacao && (
@@ -219,9 +225,9 @@ export const Main = ({ navigation }) => {
               }`}
               bookAuthor={item.livro.autor}
               returnDate={moment(item.dataDevolucao).format("DD/MM/YYYY")}
-              status={item.situacao}
-              source={{ uri: item.capa }}
-              onPress={() => handleBookModal(item.id)}
+              status={item.livro.situacao}
+              source={{ uri: item.livro.capa }}
+              onPress={() => handleBookModal(item.livro.idLivro)}
             />
           )
         }

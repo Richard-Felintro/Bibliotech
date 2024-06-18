@@ -12,7 +12,7 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { Input, ViewInput } from "../../components/Input/Style";
 import { ButtonLight, ButtonText } from "../../components/Button/Style";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { CameraModal } from "../../components/CameraModal/CameraModal";
 import { ModalLogout } from "../../components/Modal/Index";
 import { ProfileInfo, userDecodeToken } from "../../utils/Auth";
@@ -23,6 +23,9 @@ import * as MediaLibrary from "expo-media-library";
 import * as ImagePicker from "expo-image-picker";
 import { useFocusEffect } from "@react-navigation/native";
 
+// Refresh
+import { RefreshControl } from "react-native";
+
 export const Profile = ({ PadContainer = 10, navigation, route }) => {
   const [showLogout, setShowLogout] = useState(false);
   const [showCamera, setShowModalCamera] = useState(false);
@@ -31,6 +34,22 @@ export const Profile = ({ PadContainer = 10, navigation, route }) => {
   const [idUsuario, setIdUsuario] = useState("");
   const [uriCameraCapture, setUriCameraCapture] = useState(null);
   const [photo, setPhoto] = useState();
+
+  // Refresh *********************
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    
+    setTimeout(() => {
+    
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
+  useEffect(() => {
+
+  },[refreshing])
 
   async function Logout(navigation) {
     try {
@@ -86,19 +105,18 @@ export const Profile = ({ PadContainer = 10, navigation, route }) => {
       });
   };
 
-
-
   useEffect(() => {
     (async () => {
       await MediaLibrary.requestMediaLibraryPermissionsAsync;
       await ImagePicker.requestPermissionAsync;
       console.log(uriCameraCapture);
     })();
-  }, [uriCameraCapture]);
+  }, [uriCameraCapture, refreshing]);
 
   async function ChangeProfilePhoto() {
     CarregarDadosUsuario();
-    console.log(`/Usuario/AlterarFotoPerfil?id=${id}`);
+    console.log(`/Usuario/AlterarFotoPerfil?id=${idUsuario}`);
+    console.log(idUsuario)
 
     const formData = new FormData();
 
@@ -109,7 +127,7 @@ export const Profile = ({ PadContainer = 10, navigation, route }) => {
     });
 
     await api
-      .put(`/Usuario/AlterarFotoPerfil?id=${id}`, formData, {
+      .put(`/Usuario/AlterarFotoPerfil?id=${idUsuario}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -128,14 +146,18 @@ export const Profile = ({ PadContainer = 10, navigation, route }) => {
     if (uriCameraCapture != null) {
       ChangeProfilePhoto();
     }
-  }, [uriCameraCapture]);
+  }, [uriCameraCapture, refreshing]);
 
   return (
     <ScrollView
       style={{
         width: "100%",
       }}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
     >
+    
       <ContainerProfile PadContainer={PadContainer}>
         {/* <PhotoContent> */}
         <PhotoProfile>

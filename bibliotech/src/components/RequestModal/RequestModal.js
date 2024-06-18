@@ -39,7 +39,9 @@ export const RequestModal = ({ visible, showModal, navigation }) => {
       .get(`/Livro/ListarLivrosPorGenero?idGenero=${selectedGenre}`)
       .then(async (response) => {
         setBooks(
-          response.data.map((x) => ({
+          response.data
+          .filter(x => x.situacaoLivro === "disponível")
+          .map((x) => ({
             label: x.titulo,
             value: x.idLivro,
           }))
@@ -51,6 +53,10 @@ export const RequestModal = ({ visible, showModal, navigation }) => {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  async function UpdateBooks(){
+   
   }
 
   async function LoadGenres() {
@@ -75,6 +81,8 @@ export const RequestModal = ({ visible, showModal, navigation }) => {
     navigation.replace('Calendar', {
       BookId: selectedBook,
     });
+
+   
   }
 
   async function ChooseGenre(value){

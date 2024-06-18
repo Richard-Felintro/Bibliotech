@@ -8,6 +8,15 @@ export const InputBox = styled.View`
   width: 80%;
   min-width: 50vw;
 `;
+export const PasswordInputBox = styled.View`
+  align-items: center;
+  justify-content: center;
+  border-bottom-color: #a1d9df;
+  border-bottom-width: 1px;
+  width: 80%;
+  min-width: 50vw;
+  flex-direction: row;
+`;
 
 export const InputText = styled.TextInput.attrs({
   placeholderTextColor: "#c8c8c8",

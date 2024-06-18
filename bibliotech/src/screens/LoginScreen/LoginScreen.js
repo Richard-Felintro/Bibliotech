@@ -3,7 +3,7 @@ import {
   ContainerInput,
   ContainerGradient,
 } from "../../components/Container/Style";
-import { Input } from "../../components/Input/Input";
+import { Input, PasswordInput } from "../../components/Input/Input";
 import { ButtonDark, ButtonText } from "../../components/Button/Style";
 import {
   LinkButton,
@@ -31,8 +31,8 @@ Notifications.setNotificationHandler({
   }),
 });
 export const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("richardfelintro06@gmail.com");
-  const [senha, setSenha] = useState("richard");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
   const handleCallNotifications = async () => {
     const { status } = await Notifications.getPermissionsAsync();
@@ -94,7 +94,11 @@ export const LoginScreen = ({ navigation }) => {
         />
         <ContainerInput>
           <Input placeholder={"EMAIL"} onChange={(e) => setEmail(e)} />
-          <Input placeholder={"SENHA"} onChange={(e) => setSenha(e)} />
+          <PasswordInput
+            placeholder={"SENHA"}
+            onChange={(e) => setSenha(e)}
+            value={senha}
+          />
         </ContainerInput>
 
         <ButtonDark onPress={() => HandleLogin()}>
